@@ -1,0 +1,29 @@
+<!DOCTYPE html></DOCTYPE>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Overlay</title>
+    <link rel="stylesheet" href="widget.css" />
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js"></script>
+    <script type="text/javascript" src="widget.js" defer></script>
+</head>
+<body>
+    <div id="tchat" class="messages"></div>
+
+    <script type="text/javascript">
+        document.body.addEventListener('click', () => {
+            console.log("clicked")
+            window.dispatchEvent(new CustomEvent('onEventReceived', {
+                detail: {
+                    event: {
+                        field: 'testMessage',
+                        listener: 'widget-button'
+                    }
+                }
+            }))
+        })
+    </script>
+</body>
+</html>

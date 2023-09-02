@@ -1,0 +1,49 @@
+body, html {
+    height: 100%;
+    overflow: hidden;
+}
+
+.messages {
+    position: absolute;
+    inset: 0;
+    top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.message {
+    overflow: hidden;
+    border: solid 1px #000;
+    animation: MessageIn .3s;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    color: var(--color);
+    font-weight: bold;
+}
+
+.badges {
+    display: flex;
+    align-items: center;
+}
+
+.badges img {
+    width: 1rem;
+    margin-right: .3rem;
+}
+
+@keyframes MessageIn {
+    from {
+        transform: translateX(20px); 
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        transform: translateX(0); 
+        opacity: 1;
+        max-height: 400px;
+    }
+}
