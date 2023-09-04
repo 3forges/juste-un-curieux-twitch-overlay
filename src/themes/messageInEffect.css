@@ -71,7 +71,7 @@ body {
 [data-twitch-message-reply] {
 	display: block;
 	opacity: 0.6;
-	text-overflow: ellipsis;
+	/* text-overflow: ellipsis; */
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -101,12 +101,12 @@ body {
 	max-width: 50ch;
 	word-wrap: break-word;
 }
-
+/*
 [data-twitch-message-status*='highlighted'] .twitch-chat-message {
 	text-shadow: 0 0 5px white;
 	color: white;
 }
-
+*/
 /* chat commands */
 .twitch-chat-command {
 	background-color: transparent;
