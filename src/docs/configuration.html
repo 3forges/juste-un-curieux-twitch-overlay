@@ -1,0 +1,132 @@
+---
+title: Overlay Configuration API
+description: All parameters for showmy.chat overlay URLs.
+---
+
+<p>
+	The <dfn style="font-weight: bold;">overlay configuration API</dfn> is the set
+	of query parameters which can be provided as part of your
+	<b>showmy.chat</b> overlay URL to customize its behavior. Every query
+	parameter is optional.
+</p>
+
+<table style="position: relative; margin-top: 1em;">
+	<caption style="font-weight: bold; margin-bottom: 1.5em;">
+		Overlay Configuration Options
+	</caption>
+	<thead>
+		<tr>
+			<th scope="col">Parameter</th>
+			<th scope="col">Format</th>
+			<th scope="col">Default</th>
+			<th scope="col">Notes</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="demo">
+			<th scope="row">
+				<code><a href="#demo">DEMO</a></code>
+			</th>
+			<td><code>true</code>, <code>false</code>, or <code>static</code></td>
+			<td><code>{{defaults.DEMO}}</code></td>
+			<td>
+				<p>
+					Displays plausible but randomly generated messages instead of a live
+					feed.
+				</p>
+				<ul>
+					<li>
+						When <code>true</code>, new messages are added periodically.
+					</li>
+					<li>
+						When <code>static</code>, all messages are shown immediately and no messages are added.
+					</li>
+				</ul>
+			</td>
+		</tr>
+		<tr id="clear-message-after">
+			<th scope="row">
+				<code><a href="#clear-message-after">clearMessageAfter</a></code>
+			</th>
+			<td>Any positive integer</td>
+			<td><code>{{defaults.clearMessageAfter}}</code></td>
+			<td>
+				Removes messages from the overlay after the specified time (in milliseconds) has elapsed
+			</td>
+		</tr>
+		<tr id="disable-animated-emotes">
+			<th scope="row">
+				<code><a href="#disable-animated-emotes">disableAnimatedEmotes</a></code>
+			</th>
+			<td><code>true</code> or <code>false</code></td>
+			<td><code>{{defaults.disableAnimatedEmotes}}</code></td>
+			<td>Displays static versions of animated emotes</td>
+		</tr>
+		<tr id="hide-messages-from">
+			<th scope="row">
+				<code><a href="#hide-messages-from">hideMessagesFrom</a></code>
+			</th>
+			<td>A comma-separated list of case-insensitive usernames</td>
+			<td><code>{{defaults.hideMessagesFrom}}</code></td>
+			<td>
+				Does not display messages if sent by any users in the provided list
+			</td>
+		</tr>
+		<tr id="show-commands">
+			<th scope="row">
+				<code><a href="#show-commands">showCommands</a></code>
+			</th>
+			<td>
+				<code>true</code>, <code>false</code>, or a comma-separated list of
+				commands to show
+			</td>
+			<td><code>{{defaults.showCommands}}</code></td>
+			<td>
+				Displays chat commands (such as <samp>!commands</samp>) as though they
+				were regular chat messages
+			</td>
+		</tr>
+		<tr id="show-latest-messages">
+			<th scope="row">
+				<code><a href="#show-latest-messages">showLatestMessages</a></code>
+			</th>
+			<td>Any positive integer</td>
+			<td><code>{{defaults.showLatestMessages}}</code></td>
+			<td>
+				Removes old messages once you reach the provided threshold (useful for
+				performance)
+			</td>
+		</tr>
+		<tr id="theme">
+			<th scope="row">
+				<code><a href="#theme">theme</a></code>
+			</th>
+			<td>String</td>
+			<td><code>default</code></td>
+			<td>
+				Determines which stylesheet to load. Either the name (filename without
+				the <code>.css</code> extension) of a theme stylesheet in this project,
+				or a valid URI of a CSS stylesheet.
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<style>
+	th[scope='col'] {
+		font-weight: bold;
+		text-align: center;
+		position: sticky !important;
+		top: -2px;
+		background-color: var(--background-color);
+	}
+
+	tr:target {
+		background-color: var(--muted-border-color);
+		scroll-margin-top: 3em;
+	}
+
+	tr:hover {
+		background-color: var(--switch-background-color);
+	}
+</style>

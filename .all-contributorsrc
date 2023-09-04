@@ -1,0 +1,163 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "BenDMyers",
+      "name": "Ben Myers",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18060369?v=4",
+      "profile": "http://benmyers.dev",
+      "contributions": [
+        "code",
+        "design",
+        "infra"
+      ]
+    },
+    {
+      "login": "Jarvis1010",
+      "name": "Travis Waith-Mair",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5460770?v=4",
+      "profile": "https://non-traditional.dev",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "chantastic",
+      "name": "Michael Chan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/658360?v=4",
+      "profile": "http://twitter.com/chantastic",
+      "contributions": [
+        "content"
+      ]
+    },
+    {
+      "login": "ajcwebdev",
+      "name": "Anthony Campolo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12433465?v=4",
+      "profile": "https://ajcweb.dev/",
+      "contributions": [
+        "doc",
+        "code"
+      ]
+    },
+    {
+      "login": "nachtfunke",
+      "name": "Thomas Michael Semmler",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4201323?v=4",
+      "profile": "http://helloyes.dev",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "fimion",
+      "name": "Alex Riviere",
+      "avatar_url": "https://avatars.githubusercontent.com/u/13134182?v=4",
+      "profile": "https://alex.party",
+      "contributions": [
+        "content",
+        "design",
+        "code"
+      ]
+    },
+    {
+      "login": "KenAKAFrosty",
+      "name": "Ken aka Frosty",
+      "avatar_url": "https://avatars.githubusercontent.com/u/90424167?v=4",
+      "profile": "https://github.com/KenAKAFrosty",
+      "contributions": [
+        "content",
+        "code",
+        "infra"
+      ]
+    },
+    {
+      "login": "NickyMeuleman",
+      "name": "Nicky Meuleman",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30179461?v=4",
+      "profile": "https://nickymeuleman.netlify.app/",
+      "contributions": [
+        "design",
+        "code",
+        "tool",
+        "doc"
+      ]
+    },
+    {
+      "login": "peruvianidol",
+      "name": "Mike Aparicio",
+      "avatar_url": "https://avatars.githubusercontent.com/u/242304?v=4",
+      "profile": "http://www.mikeaparicio.com",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "RedSparr0w",
+      "name": "Danial",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7288322?v=4",
+      "profile": "https://redsparr0w.com",
+      "contributions": [
+        "design"
+      ]
+    },
+    {
+      "login": "a-trost",
+      "name": "Alex Trost",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19617280?v=4",
+      "profile": "https://www.frontend.horse",
+      "contributions": [
+        "content",
+        "design"
+      ]
+    },
+    {
+      "login": "kevin-powell",
+      "name": "Kevin Powell",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25749407?v=4",
+      "profile": "https://youtube.com/kevinpowell",
+      "contributions": [
+        "content"
+      ]
+    },
+    {
+      "login": "jbolda",
+      "name": "Jacob Bolda",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2019387?v=4",
+      "profile": "http://www.jacobbolda.com",
+      "contributions": [
+        "content"
+      ]
+    },
+    {
+      "login": "jennjunod",
+      "name": "Jenn Junod",
+      "avatar_url": "https://avatars.githubusercontent.com/u/77285384?v=4",
+      "profile": "http://teachjenntech.com",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "maciejpedzich",
+      "name": "Maciej Pędzich (Mac)",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68030845?v=4",
+      "profile": "https://maciejpedzi.ch",
+      "contributions": [
+        "content",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "showmy.chat",
+  "projectOwner": "BenDMyers",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true,
+  "commitConvention": "angular"
+}
