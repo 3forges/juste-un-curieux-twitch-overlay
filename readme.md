@@ -8,6 +8,6 @@
 [app_root_dir]/serve
 ```
 ## Configure
-```bash
-
+```
+http://localhost:3000/demo
 ```
