@@ -153,6 +153,9 @@ const MOCK_COMFY = (function () {
 				setTimeout(_generateNextMessage, 500);
 			}
 		},
+		add(__username, __auth, channelNames) {
+			_generateNextMessage();
+		}
 	};
 
 	const messages = [];
@@ -273,7 +276,7 @@ const MOCK_COMFY = (function () {
 				Math.random() < 0.25 ? _generateChatCommand : _generateNextMessage;
 
 			const duration = Math.floor(Math.random() * 4) + 3;
-			setTimeout(nextGeneratedMessage, duration * 1000);
+			//setTimeout(nextGeneratedMessage, duration * 1000);
 		}
 	}
 
@@ -322,10 +325,17 @@ const MOCK_COMFY = (function () {
 		}
 
 		const duration = Math.floor(Math.random() * 2) + 2;
-		setTimeout(_generateNextMessage, duration * 1000);
+		//setTimeout(_generateNextMessage, duration * 1000);
 	}
 
 	return comfy;
 })();
 
 window.ComfyJS = MOCK_COMFY;
+// console.log(MOCK_COMFY)
+const bouton = document.createElement("input");
+bouton.type = "button"
+bouton.value= "add"
+bouton.style = "position: absolute; top: 5px; left: 5px";
+bouton.onclick = () => MOCK_COMFY.add();
+document.body.appendChild(bouton);

@@ -4,6 +4,8 @@
 	--twitch-dark-background: rgb(24 24 27);
 	--twitch-purple: rgb(180 84 255);
 	--twitch-highlight-purple: #755ebc;
+	--twitch-font-size: 14;
+	--twitch-font-px: 14px;
 }
 
 html,
@@ -11,15 +13,15 @@ body {
 	overflow: hidden;
 	height: 100vh;
 	margin-top: 0;
-	background-color: var(--twitch-dark-background);
 	font-family: IBM Plex Mono, monospace;
+	background-color: rgba(53,53,53,0.8);
 }
 
+/* Style the entire list of messages */
 [data-twitch-chat] {
-	background-color: var(--twitch-dark-background);
 	color: var(--twitch-light);
 	font-family: IBM Plex Mono, monospace;
-	font-size: 14px;
+	font-size: var(--twitch-font-px);
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -30,22 +32,22 @@ body {
 	justify-content: flex-end;
 }
 
+/* Style an individual message list item (this includes sender, reply snippets, etc) */
 [data-twitch-message] {
 	line-height: 22.5px;
 	margin: 0;
+	/*
 	padding-bottom: 5.625px;
 	padding-left: 22.5px;
 	padding-right: 22.5px;
 	padding-top: 5.625px;
+	*/
+	padding-left: 3px;
 	display: flex;
 	justify-content: flex-start;
 }
 
-[data-twitch-message-display-status='deleting'] {
-	transition: 1s linear opacity;
-	opacity: 0;
-}
-
+/* Style snippet of replied-to messages */
 [data-twitch-message-reply] {
 	color: var(--twitch-gray);
 	display: block;
@@ -54,13 +56,12 @@ body {
 	overflow: hidden;
 }
 
+/* Style the sender's username in each message item */
 [data-twitch-message] .twitch-chat-sender {
 	color: var(--twitch-sender-color, var(--twitch-purple));
 	display: inline;
 	font-weight: 700;
 }
-
-
 
 [data-twitch-message] .twitch-chat-sender::after {
 	content: ': ';
@@ -68,6 +69,7 @@ body {
 	font-weight: normal;
 }
 
+/* Style the message contents themselves */
 [data-twitch-message] .twitch-chat-message {
 	display: block;
 	flex-direction: column;
@@ -76,48 +78,28 @@ body {
 	overflow: hidden;
 	white-space: nowrap;
 	position: relative;
-	animation: typing 3.5s steps(var(--twitch-message-length));
+	animation: typing 1s steps(var(--message-length));
+	animation-delay: var(--message-delay)
 }
-
 @keyframes typing {
 	from {
+		display: block;
 		width: 0%;
 	}
 	to {
 		width: 100%;
+		display: block;
 	}
 }
 
-[data-twitch-message-status~='highlighted'] .twitch-chat-message {
-	background-color: var(--twitch-highlight-purple);
-	border: 4px solid var(--twitch-highlight-purple);
-	color: white;
-}
-
-[data-twitch-message-status~='action'] .twitch-chat-message {
-	font-style: italic;
-}
-
+/* Style chat emotes */
 [data-twitch-emote] {
 	width: 1.2em;
 }
 
+/* Style @-mentions */
 [data-twitch-mentioned-user] {
 	background-color: #323239;
 	color: inherit;
 	padding: 0.2rem 0.4rem;
-}
-
-.twitch-chat-command {
-	background-color: transparent;
-	color: inherit;
-}
-
-[data-twitch-message-status*='highlighted'] [data-twitch-mentioned-user] {
-	background-color: transparent;
-}
-
-[data-twitch-message] a {
-	color: var(--twitch-purple);
-	text-decoration: none;
 }

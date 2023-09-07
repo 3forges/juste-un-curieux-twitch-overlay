@@ -1,10 +1,10 @@
 module.exports = {
-	channel: 'showmychat',
+	channel: 'bioboosterbob',
 	clearMessageAfter: '',
-	DEMO: false,
+	DEMO: true,
 	disableAnimatedEmotes: false,
 	hideMessagesFrom: '',
 	showCommands: false,
 	showLatestMessages: 100,
-	theme: 'default',
+	theme: 'messageInEffect',
 };

@@ -177,20 +177,10 @@ ComfyJS.onChat = function (user, messageContents, flags, self, extra = {}) {
 	/**
 	 * detection computedStyle => font-family: IBM Plex Mono, monospace;
 	 * ajout de --twitch-message-length: ${formattedMessage.length}; dans la balise mere <li>
-	 * ajout d'une balise <div class="twitch-chat-message"> par ligne (contentLength*fontSize/width)
+	 * ajout d'une balise <div class="twitch-chat-message"> par ligne (formattedMessage.length*fontSize/width)
 	 */
 
 	let formattedMessage = formatEmotes(messageContents, extra.messageEmotes);
-	const width =
-		getComputedStyle(document.getElementsByTagName('ul')[0]).width.replace(
-			/px/,
-			''
-		) * 1;
-	const font = getComputedStyle(
-		document.getElementsByTagName('ul')[0]
-	).fontFamily;
-	console.log('width: ', width);
-	console.log('font: ', font);
 
 	formattedMessage = formatUserMentions(formattedMessage);
 	if (extra._isCommand) {
@@ -202,28 +192,98 @@ ComfyJS.onChat = function (user, messageContents, flags, self, extra = {}) {
 	}
 	const message = new Array();
 	//message[0] = document.createElement('div');
-	const contentLength = formattedMessage.length;
-	console.log('total length ', contentLength);
-	console.log('lines: ', (contentLength * 14) / width);
+	
 
+	const messageContainer = document.createElement("div");
+	const font = getComputedStyle(
+		document.getElementsByTagName('ul')[0]
+	).fontFamily;
 	if (font.replace(/IBM Plex Mono/, '') != font) {
-		const lineCharLenght = width / 14;
-		for (let i = 0; i < contentLength / lineCharLenght; i++) {
+		const delay = 1;
+		const width =
+		getComputedStyle(document.getElementsByTagName('ul')[0]).width.replace(
+			/px/,
+			''
+		) * 1;
+		//const contentLength = formattedMessage.length;
+		const lineCharLength = width / 14;
+
+		// console.log('width: ', width);
+		// console.log('font: ', font);
+		// console.log("lineCharLength: ", lineCharLength)
+		// console.log('total length ', formattedMessage.length);
+		// console.log('lines: ', (formattedMessage.length * 14) / width);
+		console.log(formattedMessage)
+		
+		messageContainer.style = "display: block;";
+		messageContainer.appendChild(sender);
+		let lineCharStartIndex = 0
+		for (let i = 0; i < formattedMessage.length / lineCharLength; i++) {
 			message[i] = document.createElement('div');
-			message[i].innerHTML = formattedMessage.substring(
-				i * lineCharLenght,
-				(i + 1) * lineCharLenght
+			message[i].setAttribute("style", "--message-length: "+Math.floor(lineCharLength)+"; --message-delay: "+(i*delay)+"s;");
+			let line = formattedMessage.substring(
+				lineCharStartIndex,
+				(i + 1) * Math.ceil(lineCharLength)
 			);
+
+			/**
+			 * <mark></mark>
+			 * 	.indexOf("<mark>") to indexOf("</mark>")
+			 * 	this.length remove calc(balise.length) add calc(balise.innerlength)
+			 * <img alt="<3" src="<3"> 
+			 * 	.indexOf("<img") to indexOf(">")
+			 *  this.length remove calc(balise.length) add 1
+			 * 
+			 * <a></a>
+			 *  .indexOf("<a>") to .indexOf("</a>")
+			 *  this.length to calc(balise.innerlength)
+			 */
+			if (line.replace(/<mark/, '') != line) {
+				console.log("Marked")
+				line = formattedMessage.substring(formattedMessage.indexOf("<mark"), formattedMessage.indexOf("</mark>")+7)
+				console.log(line)
+				//const renderLength = line.lastIndexOf("</mark>") - line.indexOf(">")
+				lineCharStartIndex = lineCharStartIndex + line.length
+				
+			}else if (line.replace(/<img/, '') != line) {
+				console.log("Imged")
+			}else if (line.replace(/<a/, '') != line) {
+				console.log("aed")
+			}else lineCharStartIndex += Math.ceil(lineCharLength)
+
+			/*
+			if (line.replace(/</,'') == line) {
+				console.log("no balise")
+			}else if (line.replace(/>/,'') != line) {
+				console.log("balise contenue")
+				 if (line.replace(/</,'').replace(/</,'') != line.replace(/</,'')) {
+					console.log("debut balise fermante")
+				 }else{
+					console.log("balise fermante manquante")
+				 }
+				
+			} else {
+				console.log("balise broken")
+			}
+			*/
+			
+			message[i].innerHTML = line;
 			message[i].classList.add('twitch-chat-message');
+			messageContainer.appendChild(message[i]);
 		}
+
+		sender.style ="display: block;"
+		newMessage.appendChild(messageContainer);
 	} else {
 		message[0] = document.createElement('div');
 		message[0].innerHTML = formattedMessage;
 		message[0].classList.add('twitch-chat-message');
+		newMessage.appendChild(sender);
+		message.map((mes) => newMessage.appendChild(mes));
 	}
 	//message.innerHTML = formattedMessage;
 	//message.classList.add('twitch-chat-message');
-	/*
+
 	if (extra.userState['reply-parent-msg-id']) {
 		const replyPreview = document.createElement('small');
 		replyPreview.setAttribute(
@@ -237,9 +297,9 @@ ComfyJS.onChat = function (user, messageContents, flags, self, extra = {}) {
 		replyPreview.innerHTML = `Replying to <span data-twitch-replied-user="@${extra.userState['reply-parent-display-name']}">@${extra.userState['reply-parent-display-name']}</span>: ${repliedMessage}`;
 		newMessage.appendChild(replyPreview);
 	}
-	*/
-	newMessage.appendChild(sender);
-	message.map((mes) => newMessage.appendChild(mes));
+	
+	//newMessage.appendChild(sender);
+	//message.map((mes) => newMessage.appendChild(mes));
 
 	/* ------------------------------ /REMINGTON PATCH ------------------------------------ */
 
