@@ -1,50 +1,26 @@
-<!--
----
-/*
- * frontmater:
- *	color-scheme
- *	channel
- *	templates = Astro.glob("/themes/*.css")
- */	
----
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<style>
-		:root {
-			color-scheme: light dark;
-		}
-	</style>
-	<link rel="stylesheet" href="./themes/messageInEffect.css" />
-	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
-	<script>
-		const config = JSON.parse(
-			`{
-				"clearMessageAfter":"",
-				"DEMO":false,
-				"disableAnimatedEmotes":false,
-				"hideMessagesFrom":"",
-				"showCommands":false,
-				"showLatestMessages":30,
-				"theme":"messageInEffect"
-			}`);
-		window.CONFIG = Object.freeze(config);
-	</script>
-	
-	<script src="/scripts/demo/faker.min.js"></script>
-	<script src="/scripts/demo/demo.mjs" type="module"></script>
-
 	<title>bioboosterbob | showmy.chat</title>
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>" />
-	<meta property="og:title" content="bioboosterbob's overlay" />
-	<meta property="og:description" content="bob's chat" />
-	<meta property="og:site_name" content="showmy.chat" />
-	<meta property="og:locale" content="en_US" />
-	<meta name="theme-color" content="#1095c1" />
+	<link rel="stylesheet" href="./themes/default.css" />
+<!-- INCLUDE CONFIG -->
+	<script type="text/javascript" src="./scripts/config.js"></script>
+<!-- HANDLE CONFIG & THEME -->
+	<script type="text/javascript">
+		if (config.theme != "") {
+			document.head.getElementsByTagName("link")[1].href = "./themes/"+config.theme+".css"
+			console.log("theme applied from config", config.theme)
+		}
+		window.CONFIG = Object.freeze(config);
+	</script>
+<!-- ComfyJS MOCK -->
+<script src="/scripts/demo/demo.mjs" type="module"></script>
+<!-- 3rd PARTY -->	
+	<script src="/scripts/demo/faker.min.js"></script>
 </head>
 
 <body>
@@ -61,33 +37,40 @@
 			<option value="horse-horse-horse.css">horse-horse-horse</option>
 			<option value="hot-dog-stand.css">hot-dog-stand</option>
 			<option value="light.css">light</option>
-			<option value="messageInEffect.css" selected>messageInEffect</option>
+			<option value="messageInEffect.css">messageInEffect</option>
 			<option value="minechat.css">minechat</option>
 			<option value="peruvian-idol.css">peruvian-idol</option>
 			<option value="remington.css">remington</option>
 			<option value="retro-swirly.css">retro-swirly</option>
 		</select>
 	</div>
+
 	<ul data-twitch-chat="bioboosterbob" id="chat"></ul>
+<!-- showmy.chat -->
 	<script src="./scripts/color.mjs" type="module"></script>
 	<script src="./scripts/handleChat.mjs" type="module"></script>
 	<script src="./scripts/utilities.mjs" type="module"></script>
+<!-- CONTROL BAR JS -->
 	<script type="text/javascript">
 		function theme(stylesheet) {
-			document.getElementById("chat").innerHTML =""
-			document.head.getElementsByTagName("link")[0].href = "/themes/"+stylesheet
+			document.getElementById("chat").innerHTML = ""
+			document.head.getElementsByTagName("link")[0].href = "/themes/" + stylesheet
 			window.ComfyJS.add()
 		}
 		const bouton = document.getElementById('controlBar').children[0]
 		bouton.addEventListener('click', () => { 
-			window.ComfyJS.add() 
+			window.ComfyJS.add()
 		})
-
 		const select = document.getElementById('controlBar').children[1]
 		select.addEventListener('change', (e) => {
 			theme(e.target.value)
 		})
+		if (window.CONFIG.theme != "") {
+				for (let i=0; i < select.children.length; i++) {
+					if (select.children[i].value.replace(config.theme,'') != select.children[i].value)
+						select.children[i].selected = true;
+				}
+		}
 	</script>
 </body>
-
 </html>

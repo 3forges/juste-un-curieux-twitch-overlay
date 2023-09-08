@@ -7,7 +7,7 @@
 ```bash
 [app_root_dir]/serve
 ```
-## Configure
+## Configure & get overlay url
 ```
 http://localhost:3000/demo
 ```
