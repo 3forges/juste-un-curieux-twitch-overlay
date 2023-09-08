@@ -6,5 +6,6 @@ const config = {
     "hideMessagesFrom":"",
     "showCommands":false,
     "showLatestMessages":30,
-    "theme":"cards"
+    "theme":"cards",
+    "overlayBaseURL":"https://localhost:3000/"
 };

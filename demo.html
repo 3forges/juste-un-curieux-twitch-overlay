@@ -7,6 +7,24 @@
 	<title>bioboosterbob | showmy.chat</title>
 	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>" />
 	<link rel="stylesheet" href="./themes/default.css" />
+	<style>
+		.controlBar {
+			position: absolute; 
+			top: 5px; 
+			left: 5px; 
+			z-index:1; 
+			width: 90%; 
+			margin: 0; 
+			margin-left: 50%; 
+			transform: translateX(-50%); 
+			border: solid 1px; 
+			border-radius: 7px; 
+			padding: 4px; 
+			background-color: rgba(53, 53, 225, 0.7); 
+			color: #fff; font-family: Arial, Helvetica, sans-serif; 
+			font-size: 16px;
+		}
+	</style>
 <!-- INCLUDE CONFIG -->
 	<script type="text/javascript" src="./scripts/config.js"></script>
 <!-- HANDLE CONFIG & THEME -->
@@ -15,7 +33,7 @@
 			document.head.getElementsByTagName("link")[1].href = "./themes/"+config.theme+".css"
 			console.log("theme applied from config", config.theme)
 		}
-		window.CONFIG = Object.freeze(config);
+		window.CONFIG = config //Object.freeze(config);
 	</script>
 <!-- ComfyJS MOCK -->
 <script src="/scripts/demo/demo.mjs" type="module"></script>
@@ -24,9 +42,9 @@
 </head>
 
 <body>
-	<div id="controlBar" style="position: absolute; top: 5px; left: 5px; z-index:1">
-		<input type="button"value="add random message">
-		<select name="style">
+	<div id="controlBar" class="controlBar">
+		Theme: 
+		<select id="themes" name="style">
 			<option value="default.css">default</option>
 			<option value="advent-of-code.css">advent-of-code</option>
 			<option value="alex-party.css">alex-party</option>
@@ -43,6 +61,10 @@
 			<option value="remington.css">remington</option>
 			<option value="retro-swirly.css">retro-swirly</option>
 		</select>
+		auto: <input type="checkbox" id="autoMessageCheckbox" />
+		<input type="button" value="add random message" id="addMessageButton">
+		<input type="button" value="dark" id="contrastMode">
+		<input type="button" value="Overlay URL" id="getOverlayUrl" style="float: right">
 	</div>
 
 	<ul data-twitch-chat="bioboosterbob" id="chat"></ul>
@@ -52,23 +74,46 @@
 	<script src="./scripts/utilities.mjs" type="module"></script>
 <!-- CONTROL BAR JS -->
 	<script type="text/javascript">
+		let overlayUrlText = window.CONFIG.overlayBaseURL+"?template="
 		function theme(stylesheet) {
 			document.getElementById("chat").innerHTML = ""
-			document.head.getElementsByTagName("link")[0].href = "/themes/" + stylesheet
+			document.head.getElementsByTagName("link")[1].href = "/themes/" + stylesheet
 			window.ComfyJS.add()
 		}
-		const bouton = document.getElementById('controlBar').children[0]
+		const bouton = document.getElementById('addMessageButton')
 		bouton.addEventListener('click', () => { 
 			window.ComfyJS.add()
 		})
-		const select = document.getElementById('controlBar').children[1]
+		const select = document.getElementById('themes')
 		select.addEventListener('change', (e) => {
 			theme(e.target.value)
+			overlayUrlText = window.CONFIG.overlayBaseURL+"?template="+e.target.value.replace(/.css/,'')
 		})
+		const auto = document.getElementById('autoMessageCheckbox')
+		auto.addEventListener('change', () => {
+			window.ComfyJS.add()
+		})
+		const contrast = document.getElementById('contrastMode')
+		contrast.addEventListener('click', (e) => {
+			if (e.target.value == "dark") e.target.value = "light"
+			else e.target.value = "dark"
+		})
+		const overlayUrl = document.getElementById('getOverlayUrl')
+		overlayUrl.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(overlayUrlText);
+				console.log('Content copied to clipboard');
+			} catch (err) {
+				console.error('Failed to copy: ', err);
+			}
+		})
+		
 		if (window.CONFIG.theme != "") {
 				for (let i=0; i < select.children.length; i++) {
-					if (select.children[i].value.replace(config.theme,'') != select.children[i].value)
+					if (select.children[i].value.replace(config.theme,'') != select.children[i].value) {
 						select.children[i].selected = true;
+						overlayUrlText = window.CONFIG.overlayBaseURL+"?template="+select.children[i].value.replace(/.css/,'')
+					}
 				}
 		}
 	</script>

@@ -164,6 +164,8 @@ const MOCK_COMFY = (function () {
 	 * Generates a realistic message and "sends" it
 	 */
 	function _generateNextMessage() {
+		const auto = document.getElementById('autoMessageCheckbox')
+		
 		// Generate message
 		let chatter = _choose(allUsers);
 		let numSentences = Math.floor(Math.random() * 3) + 1;
@@ -271,13 +273,14 @@ const MOCK_COMFY = (function () {
 		comfy.onChat(...message);
 
 		// do not send more messages if the demo page is static
-		if (window.CONFIG.DEMO !== 'static') {
+		// if (window.CONFIG.DEMO !== 'static') {
+		if (auto.checked) {
 			// Ready up the next message
 			const nextGeneratedMessage =
 				Math.random() < 0.25 ? _generateChatCommand : _generateNextMessage;
 
 			const duration = Math.floor(Math.random() * 4) + 3;
-			//setTimeout(nextGeneratedMessage, duration * 1000);
+			setTimeout(nextGeneratedMessage, duration * 1000);
 		}
 	}
 
@@ -326,7 +329,7 @@ const MOCK_COMFY = (function () {
 		}
 
 		const duration = Math.floor(Math.random() * 2) + 2;
-		//setTimeout(_generateNextMessage, duration * 1000);
+		if (auto.checked) setTimeout(_generateNextMessage, duration * 1000);
 	}
 
 	return comfy;
