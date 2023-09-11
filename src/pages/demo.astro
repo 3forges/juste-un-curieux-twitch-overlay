@@ -1,10 +1,27 @@
 ---
-import Layout_demo from '../layouts/Layout_demo.astro';
+import Layout from '../layouts/Layout.astro';
+const twitchChannel = "bioboosterbob"
 const templates =  fs.readdirSync('./public/themes');
 ---
 
-<Layout_demo title="Welcome to Astro.">
+<Layout title="Welcome to Astro.">
 	<main>
+		<!-- INCLUDE CONFIG -->
+	<script is:inline src="scripts/config.js"></script>
+	<!-- HANDLE CONFIG & THEME -->
+		<script is:inline>
+			if (config.theme != "") {
+				document.head.getElementsByTagName("link")[1].href = "themes/"+config.theme+".css"
+				console.log("theme applied from config", config.theme)
+			}
+			let baseUrl = window.location.href.split('demo')[0]
+			config.overlayBaseURL = baseUrl
+			window.CONFIG = config //Object.freeze(config);
+		</script>
+	<!-- 3rd PARTY -->	
+		<script is:inline src="scripts/demo/faker.min.js"></script>	
+	<!-- ComfyJS MOCK -->
+	<script is:inline src="scripts/demo/demo.js"></script>
 		<div id="controlBar">
 			Theme: 
 			<select id="themes" name="style">
@@ -22,7 +39,7 @@ const templates =  fs.readdirSync('./public/themes');
 				<p>l'url as été copié dans le clipboard</p>
 			</dialog>
 		</div>
-		<ul data-twitch-chat="bioboosterbob" id="tchat"></ul>
+		<ul data-twitch-chat={twitchChannel} id="tchat"></ul>
 	<!-- showmy.chat 3D PARTY SCRIPTS -->
 		<script src="scripts/color.js" is:inline></script>
 		<script src="scripts/utilities.js" is:inline></script>
@@ -62,7 +79,7 @@ const templates =  fs.readdirSync('./public/themes');
 					setTimeout("document.getElementById('copied').close()", 1000)
 				} catch (err) {
 					console.error('Failed to copy: ', err);
-					overlayUrl.style.background = 'F00'
+					overlayUrl.style.background = '#F00'
 					setTimeout("overlayUrl.style.background = ''", 1000)
 				}
 			})
@@ -100,9 +117,5 @@ const templates =  fs.readdirSync('./public/themes');
 		background-color: rgba(53, 53, 225, 0.7); 
 		color: #fff; font-family: Arial, Helvetica, sans-serif; 
 		font-size: 16px;
-	}
-	@keyframe fadeout {
-		from { opacity: .9; }
-		to { opacity: 0;}
 	}
 </style>

@@ -17,35 +17,8 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<link is:inline rel="stylesheet" href="themes/default.css" />
-</head>
-	<body>
-<!-- INCLUDE CONFIG -->
-	<script is:inline src="scripts/config.js"></script>
-<!-- HANDLE ARGUMENTS CONFIG & THEME -->
-	<script is:inline>
-		// TRIE ARGV
-		const loc = window.location.href
-		let handledTheme = false
-		if (loc.replace(/\?/,'') != loc) {	// HANDLE TEMPLATE FROM ARG
-			const args = loc.substring(loc.lastIndexOf("?")+1, loc.length).split("&")
-			args.map( (arg) => {
-				if (arg.replace(/template/,'') != arg) {
-					const theme = arg.split("=")[1]
-					document.head.getElementsByTagName("link")[1].href = "themes/"+theme+".css"
-					config.theme = theme
-					handledTheme = true
-					console.log("theme applied from argument: ", theme)
-				}
-			})
-		}
-		if (config.theme != "" && handledTheme == false) {	// HANDLE TEMPLATE FROM CONFIG
-			document.head.getElementsByTagName("link")[1].href = "themes/"+config.theme+".css"
-			console.log("theme applied from config: ", config.theme)
-		}
-		window.CONFIG = Object.freeze(config);
-	</script>	
-		<!-- 3rd PARTY -->	
-	<script is:inline src="scripts/comfy.min.js"></script>
-		<slot />
-	</body>
+	</head>
+<body>
+	<slot />
+</body>
 </html>
