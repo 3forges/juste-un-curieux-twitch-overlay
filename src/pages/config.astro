@@ -9,7 +9,7 @@ const title = twitchChannel+" Twitch chat Overlay CONFIG/URL"
 <Layout title={title}>
 	<main>
 <!-- INCLUDE CONFIG -->
-		<script is:inline src="scripts/config.js"></script>
+	<script is:inline src="scripts/config.js"></script>
 <!-- HANDLE CONFIG & THEME -->
 		<script is:inline>
 			if (config.theme != "") {
@@ -33,5 +33,3 @@ const title = twitchChannel+" Twitch chat Overlay CONFIG/URL"
 		<script src="scripts/handleChat.js" is:inline></script>
 	</main>
 </Layout>
-
-
