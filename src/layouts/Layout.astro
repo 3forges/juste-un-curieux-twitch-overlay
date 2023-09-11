@@ -34,13 +34,13 @@ const { title } = Astro.props;
 					document.head.getElementsByTagName("link")[1].href = "themes/"+theme+".css"
 					config.theme = theme
 					handledTheme = true
-					console.log("theme applied from argument", theme)
+					console.log("theme applied from argument: ", theme)
 				}
 			})
 		}
 		if (config.theme != "" && handledTheme == false) {	// HANDLE TEMPLATE FROM CONFIG
 			document.head.getElementsByTagName("link")[1].href = "themes/"+config.theme+".css"
-			console.log("theme applied from config", config.theme)
+			console.log("theme applied from config: ", config.theme)
 		}
 		window.CONFIG = Object.freeze(config);
 	</script>	
@@ -49,6 +49,3 @@ const { title } = Astro.props;
 		<slot />
 	</body>
 </html>
-<style is:global>
-	
-</style>

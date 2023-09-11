@@ -18,6 +18,9 @@ const templates =  fs.readdirSync('./public/themes');
 			<input type="button" value="add random message" id="addMessageButton">
 			<input type="button" value="dark" id="contrastMode">
 			<input type="button" value="Copy URL for OBS" id="getOverlayUrl" style="float: right">
+			<dialog id="copied">
+				<p>l'url as été copié dans le clipboard</p>
+			</dialog>
 		</div>
 		<ul data-twitch-chat="bioboosterbob" id="tchat"></ul>
 	<!-- showmy.chat 3D PARTY SCRIPTS -->
@@ -55,8 +58,12 @@ const templates =  fs.readdirSync('./public/themes');
 				try {
 					await navigator.clipboard.writeText(overlayUrlText);
 					console.log('Content copied to clipboard');
+					document.getElementById('copied').showModal()
+					setTimeout("document.getElementById('copied').close()", 1000)
 				} catch (err) {
 					console.error('Failed to copy: ', err);
+					overlayUrl.style.background = 'F00'
+					setTimeout("overlayUrl.style.background = ''", 1000)
 				}
 			})
 			
@@ -73,6 +80,11 @@ const templates =  fs.readdirSync('./public/themes');
 </Layout>
 
 <style>
+	#copied[open] {
+		opacity: .9;
+		border-radius: 15px;
+	} 
+
 	#controlBar {
 		position: absolute; 
 		top: 5px; 
@@ -88,5 +100,9 @@ const templates =  fs.readdirSync('./public/themes');
 		background-color: rgba(53, 53, 225, 0.7); 
 		color: #fff; font-family: Arial, Helvetica, sans-serif; 
 		font-size: 16px;
+	}
+	@keyframe fadeout {
+		from { opacity: .9; }
+		to { opacity: 0;}
 	}
 </style>

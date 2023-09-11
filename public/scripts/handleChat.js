@@ -428,13 +428,5 @@ async function init() {
 	// bttvEmoteDict = await addGlobalBttvEmotesToDict(bttvEmoteDict);
 
 	ComfyJS.Init(null, null, watchedChannels.split(' '));
-	// ComfyJS.Init( process.env.TWITCHUSER, process.env.OAUTH);
 }
-/*
-ComfyJS.onCommand = ( user, command, message, flags, extra ) => {
-	if( command === "test" ) {
-	  ComfyJS.Say( "replying to !test" );
-	}
-}
-*/
 init();
