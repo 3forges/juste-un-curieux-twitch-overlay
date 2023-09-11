@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
 const twitchChannel = "bioboosterbob"
 const title = twitchChannel+" Twitch chat Overlay"
 ---
@@ -7,7 +8,7 @@ const title = twitchChannel+" Twitch chat Overlay"
 <Layout title={title}>
 	<main>
 <!-- INCLUDE CONFIG -->
-	<script is:inline src="scripts/config.js"></script>
+	<script is:inline src="overlay/scripts/config.js"></script>
 <!-- HANDLE ARGUMENTS CONFIG & THEME -->
 		<script is:inline>
 			const loc = window.location.href
@@ -17,7 +18,7 @@ const title = twitchChannel+" Twitch chat Overlay"
 				args.map( (arg) => {													// ARGS SORT
 					if (arg.replace(/template/,'') != arg) {	 // HANDLE TEMPLATE FROM ARGS
 						const theme = arg.split("=")[1]
-						document.head.getElementsByTagName("link")[1].href = "themes/"+theme+".css"
+						document.head.getElementsByTagName("link")[1].href = "overlay/themes/"+theme+".css"
 						config.theme = theme
 						handledTheme = true
 						console.log("theme applied from argument: ", theme)
@@ -25,18 +26,18 @@ const title = twitchChannel+" Twitch chat Overlay"
 				})
 			}
 			if (config.theme != "" && handledTheme == false) {	// HANDLE TEMPLATE FROM CONFIG
-				document.head.getElementsByTagName("link")[1].href = "themes/"+config.theme+".css"
+				document.head.getElementsByTagName("link")[1].href = "overlay/themes/"+config.theme+".css"
 				console.log("theme applied from config: ", config.theme)
 			}
 			window.CONFIG = Object.freeze(config);
 		</script>	
 <!-- 3rd PARTY SCRIPT -->	
-		<script is:inline src="scripts/comfy.min.js"></script>
+		<script is:inline src="overlay/scripts/comfy.min.js"></script>
 <!-- Twitch Tchat -->
 		<ul data-twitch-chat={twitchChannel}></ul>
 <!-- showmy.chat -->
-		<script is:inline src="scripts/color.js"></script>
-		<script is:inline src="scripts/utilities.js"></script>
-		<script is:inline src="scripts/handleChat.js"></script>
+		<script is:inline src="overlay/scripts/color.js"></script>
+		<script is:inline src="overlay/scripts/utilities.js"></script>
+		<script is:inline src="overlay/scripts/handleChat.js"></script>
 		</main>
 </Layout>

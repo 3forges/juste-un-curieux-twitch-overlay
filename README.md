@@ -13,3 +13,22 @@ Astro Fork for https://github.com/BenDMyers/showmy.chat
 git clone ...
 npm i
 ```
+
+## Config 
+
+* /src/pages/index.astro & /src/pages/config.Astro
+  * const twitchChannel = "your channel"
+
+* /public/config.js
+  * "clearMessageAfter":"",
+  * "DEMO":false,
+  * "disableAnimatedEmotes":false,
+  * "hideMessagesFrom":"",
+  * "showCommands":false,
+  * "showLatestMessages":30,
+  * "theme":"cards"
+  
+* /public/themes
+  * drop your css here
+
+  

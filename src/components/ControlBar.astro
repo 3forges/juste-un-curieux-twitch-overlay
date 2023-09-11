@@ -1,5 +1,5 @@
 ---
-const templates =  fs.readdirSync('public/themes');
+const templates =  fs.readdirSync('public/overlay/themes');
 ---
 
 <div id="controlBar">
@@ -15,7 +15,7 @@ const templates =  fs.readdirSync('public/themes');
   <input type="button" value="add random message" id="addMessageButton">
   <input type="button" value="dark" id="contrastMode">
   <input type="button" value="Copy URL for OBS" id="getOverlayUrl" style="float: right">
-  <dialog id="copied">
+  <dialog id="copied" onclick="this.close()">
     <p>l'url as été copié dans le clipboard</p>
   </dialog>
 </div>
@@ -24,7 +24,7 @@ const templates =  fs.readdirSync('public/themes');
   let overlayUrlText = window.CONFIG.overlayBaseURL+"?template="
   function theme(stylesheet) {
     document.getElementById("tchat").innerHTML = ""
-    document.head.getElementsByTagName("link")[1].href = "themes/" + stylesheet
+    document.head.getElementsByTagName("link")[1].href = "overlay/themes/" + stylesheet
     window.ComfyJS.add()
   }
   const bouton = document.getElementById('addMessageButton')
