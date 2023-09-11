@@ -16,7 +16,7 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💬</text></svg>" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<link rel="stylesheet" href="/src/themes/default.css" />
+		<link is:inline rel="stylesheet" href="themes/default.css" />
 		<style>
 			.controlBar {
 				position: absolute; 
@@ -35,28 +35,27 @@ const { title } = Astro.props;
 				font-size: 16px;
 			}
 		</style>
-	<!-- INCLUDE CONFIG -->
-		<script type="text/javascript" src="/src/scripts/config.js"></script>
-	<!-- HANDLE CONFIG & THEME -->
-		<script type="text/javascript">
-			if (config.theme != "") {
-				document.head.getElementsByTagName("link")[1].href = "/src/themes/"+config.theme+".css"
-				console.log("theme applied from config", config.theme)
-			}
-			let baseUrl = window.location.href.split('demo')[0]
-			config.overlayBaseURL = baseUrl
-			window.CONFIG = config //Object.freeze(config);
-		</script>
-	<!-- ComfyJS MOCK -->
-		<script src="/src/scripts/demo/demo.mjs" type="module"></script>
-	<!-- 3rd PARTY -->	
-		<script type="text/javascript" src="/src/scripts/demo/faker.min.js"></script>	
-<!-- 3rd PARTY -->	
-	<script type="text/javascript" src="/src/scripts/comfy.min.js"></script>
 	</head>
-	<body>
-		<slot />
-	</body>
+<body>
+<!-- INCLUDE CONFIG -->
+	<script is:inline src="scripts/config.js"></script>
+<!-- HANDLE CONFIG & THEME -->
+	<script is:inline>
+		if (config.theme != "") {
+			document.head.getElementsByTagName("link")[1].href = "themes/"+config.theme+".css"
+			console.log("theme applied from config", config.theme)
+		}
+		let baseUrl = window.location.href.split('demo')[0]
+		config.overlayBaseURL = baseUrl
+		window.CONFIG = config //Object.freeze(config);
+	</script>
+<!-- 3rd PARTY -->	
+	<script is:inline src="scripts/demo/faker.min.js"></script>	
+	<!-- <script is:inline src="scripts/comfy.min.js"></script> -->
+<!-- ComfyJS MOCK -->
+<script is:inline src="scripts/demo/demo.js"></script>
+	<slot />
+</body>
 </html>
 <style is:global>
 	:root {

@@ -10,7 +10,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^3.0.10",
-    "fs": "^0.0.1-security"
+    "astro": "^3.0.10"
   }
 }

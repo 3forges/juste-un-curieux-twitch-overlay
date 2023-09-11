@@ -1,15 +1,6 @@
 ---
 import Layout_demo from '../layouts/Layout_demo.astro';
-import fs from 'fs';
-
-/*
-import { hexCodeToRgb, hexCodeToHsl, isLightOrDark } from '../scripts/color.mjs';
-import '../scripts/handleChat.mjs'
-import { removeAllMessagesFromUser, removeMessage } from '../scripts/utilities.mjs'
-*/
-// const templates = await Astro.glob('../themes/*.css')
-const templates =  fs.readdirSync('./src/themes');
-console.log(templates)
+const templates =  fs.readdirSync('./public/themes');
 ---
 
 <Layout_demo title="Welcome to Astro.">
@@ -22,23 +13,6 @@ console.log(templates)
 						<option value={tpl}>{tpl.replace(/.css/,'')}</option>
 					))
 				}
-				<!--
-				<option value="default.css">default</option>
-				<option value="advent-of-code.css">advent-of-code</option>
-				<option value="alex-party.css">alex-party</option>
-				<option value="cards.css">cards</option>
-				<option value="frontend-horse.css">frontend-horse</option>
-				<option value="hologram-neon.css">hologram-neon</option>
-				<option value="hologram.css">hologram</option>
-				<option value="horse-horse-horse.css">horse-horse-horse</option>
-				<option value="hot-dog-stand.css">hot-dog-stand</option>
-				<option value="light.css">light</option>
-				<option value="messageInEffect.css">messageInEffect</option>
-				<option value="minechat.css">minechat</option>
-				<option value="peruvian-idol.css">peruvian-idol</option>
-				<option value="remington.css">remington</option>
-				<option value="retro-swirly.css">retro-swirly</option>
-				-->
 			</select>
 			auto: <input type="checkbox" id="autoMessageCheckbox" checked/>
 			<input type="button" value="add random message" id="addMessageButton">
@@ -46,16 +20,16 @@ console.log(templates)
 			<input type="button" value="Copy URL for OBS" id="getOverlayUrl" style="float: right">
 		</div>
 		<ul data-twitch-chat="bioboosterbob" id="tchat"></ul>
-	<!-- showmy.chat -->
-		<script src="/src/scripts/color.mjs" type="module"></script>
-		<script src="/src/scripts/handleChat.mjs" type="module"></script>
-		<script src="/src/scripts/utilities.mjs" type="module"></script>
+	<!-- showmy.chat 3D PARTY SCRIPTS -->
+		<script src="scripts/color.js" is:inline></script>
+		<script src="scripts/utilities.js" is:inline></script>
+		<script src="scripts/handleChat.js" type="module"></script>
 	<!-- CONTROL BAR JS -->
-		<script type="text/javascript">
+		<script is:inline>
 			let overlayUrlText = window.CONFIG.overlayBaseURL+"?template="
 			function theme(stylesheet) {
 				document.getElementById("tchat").innerHTML = ""
-				document.head.getElementsByTagName("link")[1].href = "/src/themes/" + stylesheet
+				document.head.getElementsByTagName("link")[1].href = "themes/" + stylesheet
 				window.ComfyJS.add()
 			}
 			const bouton = document.getElementById('addMessageButton')

@@ -151,7 +151,7 @@ const MOCK_COMFY = (function () {
 					_generateNextMessage();
 				}
 			} else {
-				setTimeout(_generateNextMessage, 500);
+				rqTO = setTimeout(_generateNextMessage, 500);
 			}
 		},
 		add(__username, __auth, channelNames) {
@@ -160,10 +160,12 @@ const MOCK_COMFY = (function () {
 	};
 
 	const messages = [];
+	let rqTO = 0
 	/**
 	 * Generates a realistic message and "sends" it
 	 */
 	function _generateNextMessage() {
+		clearTimeout(rqTO);
 		const auto = document.getElementById('autoMessageCheckbox')
 		
 		// Generate message
@@ -280,7 +282,7 @@ const MOCK_COMFY = (function () {
 				Math.random() < 0.25 ? _generateChatCommand : _generateNextMessage;
 
 			const duration = Math.floor(Math.random() * 4) + 3;
-			setTimeout(nextGeneratedMessage, duration * 1000);
+			rqTO = setTimeout(nextGeneratedMessage, duration * 1000);
 		}
 	}
 
@@ -329,7 +331,7 @@ const MOCK_COMFY = (function () {
 		}
 
 		const duration = Math.floor(Math.random() * 2) + 2;
-		if (auto.checked) setTimeout(_generateNextMessage, duration * 1000);
+		if (auto.checked) rqTO = setTimeout(_generateNextMessage, duration * 1000);
 	}
 
 	return comfy;

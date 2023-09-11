@@ -8,8 +8,8 @@
 // 	addGlobalBttvEmotesToDict,
 // } from './bttvIntegration.mjs';
 
-import {hexCodeToHsl, hexCodeToRgb, isLightOrDark} from './color.mjs';
-import {removeAllMessagesFromUser, removeMessage} from './utilities.mjs';
+//import {hexCodeToHsl, hexCodeToRgb, isLightOrDark} from './color.mjs';
+//import {removeAllMessagesFromUser, removeMessage} from './utilities.mjs';
 
 const chatbox = document.querySelector('[data-twitch-chat]');
 const watchedChannels = chatbox.getAttribute('data-twitch-chat');

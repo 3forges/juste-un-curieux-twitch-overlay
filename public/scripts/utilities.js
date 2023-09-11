@@ -4,7 +4,7 @@
  *
  * @param {string} username - account whose messages to remove from the overlay
  */
-export function removeAllMessagesFromUser(username) {
+function removeAllMessagesFromUser(username) {
 	const messagesFromUser = document.querySelectorAll(
 		`[data-twitch-sender="${username}" i]:not([data-twitch-message-display-status="deleting"])`
 	);
@@ -46,7 +46,7 @@ function _removeMessageFromDomAndShiftOthers(messageToDelete) {
  *
  * @param {string} messageId - unique identifier of message getting deleted
  */
-export function removeMessage(messageId) {
+function removeMessage(messageId) {
 	const messageToDelete = document.querySelector(
 		`[data-twitch-message="${messageId}"]:not([data-twitch-message-display-status="deleting"])`
 	);

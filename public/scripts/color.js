@@ -7,7 +7,7 @@ const LIGHTNESS_THRESHOLD = Math.sqrt(1.05 * 0.05) - 0.05; // see https://stacko
  * @param {string} hexCode pound sign followed by six hexadecimal digits
  * @returns {{r: number, g: number, b: number}} red, green, and blue components normalized to the 0-255 range
  */
-export function hexCodeToRgb(hexCode) {
+function hexCodeToRgb(hexCode) {
 	const [_octothorpe, red1, red2, green1, green2, blue1, blue2] =
 		hexCode.split('');
 	const red = red1 + red2;
@@ -43,7 +43,7 @@ function hexCodeToSrgb(hexCode) {
  * @param {string} hexCode pound sign followed by six hexadecimal digits
  * @returns {{h: number, s: number, l: number}} hue, saturation, and lightness components
  */
-export function hexCodeToHsl(hexCode) {
+function hexCodeToHsl(hexCode) {
 	// Red, green, and blue components normalized to 0-1 range.
 	const {r, g, b} = hexCodeToSrgb(hexCode);
 
@@ -104,7 +104,7 @@ function getLuminance(srgbColor) {
  * @param {string} hexCode color defined as a hex code (strictly, one pound sign followed by six hexadecimal digits)
  * @returns {'light'|'dark'} `light` if color is lighter than given threshold, `dark` otherwise
  */
-export function isLightOrDark(hexCode) {
+function isLightOrDark(hexCode) {
 	const sRGB = hexCodeToSrgb(hexCode);
 	const luminance = getLuminance(sRGB);
 	return luminance > LIGHTNESS_THRESHOLD ? 'light' : 'dark';
