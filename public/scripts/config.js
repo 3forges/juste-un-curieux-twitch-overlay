@@ -7,5 +7,4 @@ const config = {
     "showCommands":false,
     "showLatestMessages":30,
     "theme":"cards",
-    "overlayBaseURL":"https://:4321/"
 };

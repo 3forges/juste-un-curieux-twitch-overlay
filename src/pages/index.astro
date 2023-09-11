@@ -1,21 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
 const twitchChannel = "bioboosterbob"
+const title = twitchChannel+" Twitch chat Overlay"
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title={title}>
 	<main>
 <!-- INCLUDE CONFIG -->
 	<script is:inline src="scripts/config.js"></script>
 <!-- HANDLE ARGUMENTS CONFIG & THEME -->
 		<script is:inline>
-			// TRIE ARGV
 			const loc = window.location.href
 			let handledTheme = false
-			if (loc.replace(/\?/,'') != loc) {	// HANDLE TEMPLATE FROM ARG
+			if (loc.replace(/\?/,'') != loc) {	// HANDLE ARGS
 				const args = loc.substring(loc.lastIndexOf("?")+1, loc.length).split("&")
-				args.map( (arg) => {
-					if (arg.replace(/template/,'') != arg) {
+				args.map( (arg) => {													// ARGS SORT
+					if (arg.replace(/template/,'') != arg) {	 // HANDLE TEMPLATE FROM ARGS
 						const theme = arg.split("=")[1]
 						document.head.getElementsByTagName("link")[1].href = "themes/"+theme+".css"
 						config.theme = theme
@@ -30,13 +30,13 @@ const twitchChannel = "bioboosterbob"
 			}
 			window.CONFIG = Object.freeze(config);
 		</script>	
-<!-- 3rd PARTY -->	
+<!-- 3rd PARTY SCRIPT -->	
 		<script is:inline src="scripts/comfy.min.js"></script>
 <!-- Twitch Tchat -->
 		<ul data-twitch-chat={twitchChannel}></ul>
 <!-- showmy.chat -->
-		<script src="scripts/color.js" is:inline></script>
-		<script src="scripts/utilities.js" is:inline></script>
-		<script src="scripts/handleChat.js" is:inline></script>
+		<script is:inline src="scripts/color.js"></script>
+		<script is:inline src="scripts/utilities.js"></script>
+		<script is:inline src="scripts/handleChat.js"></script>
 		</main>
 </Layout>
