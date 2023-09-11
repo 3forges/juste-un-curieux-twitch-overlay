@@ -8,9 +8,9 @@ const title = twitchChannel+" Twitch chat Overlay CONFIG/URL"
 
 <Layout title={title}>
 	<main>
-		<!-- INCLUDE CONFIG -->
-	<script is:inline src="scripts/config.js"></script>
-	<!-- HANDLE CONFIG & THEME -->
+<!-- INCLUDE CONFIG -->
+		<script is:inline src="scripts/config.js"></script>
+<!-- HANDLE CONFIG & THEME -->
 		<script is:inline>
 			if (config.theme != "") {
 				document.head.getElementsByTagName("link")[1].href = "themes/"+config.theme+".css"
@@ -20,13 +20,14 @@ const title = twitchChannel+" Twitch chat Overlay CONFIG/URL"
 			config.overlayBaseURL = baseUrl
 			window.CONFIG = config //Object.freeze(config);
 		</script>
-	<!-- 3rd PARTY -->	
+<!-- 3rd PARTY -->	
 		<script is:inline src="scripts/demo/faker.min.js"></script>	
-	<!-- ComfyJS MOCK -->
-	<script is:inline src="scripts/demo/demo.js"></script>
-	<ControlBar />
+<!-- ComfyJS MOCK -->
+		<script is:inline src="scripts/demo/demo.js"></script>
+<!-- BODY -->
+		<ControlBar />
 		<ul data-twitch-chat={twitchChannel} id="tchat"></ul>
-	<!-- showmy.chat 3D PARTY SCRIPTS -->
+<!-- showmy.chat 3D PARTY SCRIPTS -->
 		<script src="scripts/color.js" is:inline></script>
 		<script src="scripts/utilities.js" is:inline></script>
 		<script src="scripts/handleChat.js" is:inline></script>
