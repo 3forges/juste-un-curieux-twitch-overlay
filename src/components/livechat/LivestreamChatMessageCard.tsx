@@ -1,21 +1,7 @@
 import { h } from 'preact'
-import type { SocialNetwork } from './utils/SocialNetwork';
+import type { LivestreamChatMessage } from './utils/LivestreamChatMessage';
 
-
-export interface LivestreamChatMessage {
-    message: string;
-    username: string;
-    userProfilePictureUrl?: string;
-    socialNetwork: SocialNetwork;
-}
-
-export interface LivestreamChatMessageCardProps {
-    message: string;
-    username: string;
-    userProfilePictureUrl?: string;
-    socialNetwork: SocialNetwork;
-}
-
+/*  */
 export function getRandomInteger(): number {
   return Math.floor(Math.random() * 1024) + 1;
 }
@@ -24,7 +10,7 @@ export function LivestreamChatMessageCard({
     username,
     userProfilePictureUrl = `https://fastly.picsum.photos/id/${getRandomInteger()}/12/12`,
     socialNetwork
-}: LivestreamChatMessageCardProps) {
+}: LivestreamChatMessage) {
 
     return (
         <>

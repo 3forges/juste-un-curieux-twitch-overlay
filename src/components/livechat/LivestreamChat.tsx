@@ -1,8 +1,8 @@
 import { h } from 'preact'
 import { useRef, useState/*, useEffect*/ } from 'preact/compat'
-import type { SocialNetwork } from './utils/SocialNetwork';
-import type { LivestreamChatMessage } from './LivestreamChatMessage';
-import { LivestreamChatMessageCard } from './LivestreamChatMessage';
+import type { LivestreamChatMessage } from './utils/LivestreamChatMessage';
+
+import { LivestreamChatMessageCard } from './LivestreamChatMessageCard';
 // import ComfyJS/*, { type ComfyJSInstance }*/ from "comfy.js";
 
 //const ComfyJS = require("comfy.js").ComfyJS;
