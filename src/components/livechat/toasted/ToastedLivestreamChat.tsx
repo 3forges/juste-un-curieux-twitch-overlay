@@ -4,11 +4,11 @@ import type { LivestreamChatMessage } from './../utils/LivestreamChatMessage';
 
 import {
     DateTimeFormatter,
-    LocalDate, 
-    LocalDateTime, 
-    LocalTime, 
+    LocalDate,
+    LocalDateTime,
+    LocalTime,
     Period,
-  } from '@js-joda/core'
+} from '@js-joda/core'
 // import ComfyJS/*, { type ComfyJSInstance }*/ from "comfy.js";
 import { Toaster, toast, type ExternalToast } from 'sonner'
 //const ComfyJS = require("comfy.js").ComfyJS;
@@ -41,7 +41,7 @@ export interface ToastedLivestreamChatProps {
     channelOwnerUSerName: string;
 }
 
-export default /* async */ function ToastedLivestreamChat({channel, channelOwnerUSerName}: ToastedLivestreamChatProps) {
+export default /* async */ function ToastedLivestreamChat({ channel, channelOwnerUSerName }: ToastedLivestreamChatProps) {
     const [messages, setMessages] = useState<LivestreamChatMessage[]>([]);
     const [twitchCientInitialized, setTwitchCientInitialized] = useState<boolean>(false);
     console.log(` channel = ${channel}`)
@@ -62,11 +62,19 @@ export default /* async */ function ToastedLivestreamChat({channel, channelOwner
         let currentTimeHour = LocalTime.now().hour()
         let currentTimeMinute = LocalTime.now().minute()
         let toastConfig: ExternalToast = {
-            className: `bg-fuschia-300`,
+            unstyled: true,
+            classNames: {
+                toast: 'ml-1 p-1 bg-green-300 rounded-lg animate-pulse',
+                title: 'p-1 text-sm text-white-900',
+                description: 'p-1 text-white-900',
+                actionButton: 'bg-zinc-400',
+                cancelButton: 'bg-orange-400',
+                closeButton: 'bg-lime-400',
+            },
             invert: false,
             duration: 9000,
-            description: `${tags['display-name']}, ${currentTimeHour}:${(currentTimeMinute<10?"0"+currentTimeMinute:currentTimeMinute)}`,
-          }
+            description: `${currentTimeHour}:${(currentTimeMinute < 10 ? "0" + currentTimeMinute : currentTimeMinute)} - ${tags['display-name']}, on Twitch`,
+        }
         toast.message(`${message}`, toastConfig)
         // let newMessages: ToastedLivestreamChatMessage[] = [
         //     ...messages,
@@ -80,7 +88,7 @@ export default /* async */ function ToastedLivestreamChat({channel, channelOwner
         console.log(`Avant l'appel de setMessages, on a le state 'messages' qui vaut : `, messagesStateRef.current)
         setMessages([
             //...getCurrentMessagesList(),
-            ...(messagesStateRef.current?messagesStateRef.current:[]),
+            ...(messagesStateRef.current ? messagesStateRef.current : []),
             {
                 message: `${message}`,
                 socialNetwork: 'Twitch',
@@ -107,7 +115,7 @@ export default /* async */ function ToastedLivestreamChat({channel, channelOwner
                 username: 'bot-name',
                 password: 'oauth:my-bot-token'
             },*/
-            channels: [ `${channel}` ]
+            channels: [`${channel}`]
         });
         client.connect().catch(console.error);
         client.on('connected', () => {
@@ -115,7 +123,7 @@ export default /* async */ function ToastedLivestreamChat({channel, channelOwner
             console.log(`Astro: Ok now I know the Twitch client is connected to the chat`);
         })
         client.on('message', handleOnTwitchMessage);
-        
+
     } else {
         console.log(`Twitch Client is already initialized and connected`)
     }
@@ -129,15 +137,27 @@ export default /* async */ function ToastedLivestreamChat({channel, channelOwner
     //     ComfyJS.Init(channelOwnerUSerName, undefined, [channel] /*watchedChannels.split(' ')*/);
     // }
     //const ComfyJSsession = initComFyJs()
-    
+
     return (
         <>
             <div className={`z-7 bg-[rgba(138,228,240,0.4)] absolute grid justify-items-center items-center min-w-[80%] min-h-[50%]`} >
                 <ul role="list" class="divide-y divide-gray-100">
-                {//<Toaster expand duration={5} pauseWhenPageIsHidden toastOptions={{}} position="bottom-center" />
+                    {//<Toaster expand duration={5} pauseWhenPageIsHidden toastOptions={{}} position="bottom-center" />
 
-                }
-                <Toaster visibleToasts={7} expand position="bottom-center" />
+                    }
+                    <Toaster
+                        toastOptions={{
+                            // unstyled: true,
+                            // classNames: {
+                            //     toast: 'bg-blue-400',
+                            //     title: 'text-red-400',
+                            //     description: 'text-red-400',
+                            //     actionButton: 'bg-zinc-400',
+                            //     cancelButton: 'bg-orange-400',
+                            //     closeButton: 'bg-lime-400',
+                            // },
+                        }}
+                        visibleToasts={7} expand position="bottom-center" />
                 </ul>
             </div>
         </>
