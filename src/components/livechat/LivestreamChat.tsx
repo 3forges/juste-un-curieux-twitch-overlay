@@ -8,7 +8,28 @@ import { LivestreamChatMessageCard } from './LivestreamChatMessage';
 //const ComfyJS = require("comfy.js").ComfyJS;
 import tmi from 'tmi.js';
 
-
+/*
+export interface CommonUserstate {
+    badges?: Badges | undefined;
+    "badge-info"?: BadgeInfo | undefined;
+    color?: string | undefined;
+    "display-name"?: string | undefined;
+    emotes?: { [emoteid: string]: string[] } | undefined;
+    id?: string | undefined;
+    mod?: boolean | undefined;
+    turbo?: boolean | undefined;
+    "emotes-raw"?: string | undefined;
+    "badges-raw"?: string | undefined;
+    "badge-info-raw"?: string | undefined;
+    "room-id"?: string | undefined;
+    subscriber?: boolean | undefined;
+    "user-type"?: "" | "mod" | "global_mod" | "admin" | "staff" | undefined;
+    "user-id"?: string | undefined;
+    "tmi-sent-ts"?: string | undefined;
+    flags?: string | undefined;
+    [paramater: string]: any;
+}
+*/
 export interface LivestreamChatProps {
     channel: string;
     channelOwnerUSerName: string;
@@ -23,8 +44,15 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
     const getCurrentMessagesList = (): LivestreamChatMessage[] => {
         return messages;
     }
-    const handleOnTwitchMessage = (channel: string, tags: any, message: string, self: any) => {
-        console.log(` voici le message de ${tags['display-name']} : ${messagesStateRef.current}`)
+    const handleOnTwitchMessage = (channel: string, tags: tmi.ChatUserstate, message: string, self: any) => {
+        console.log(` voici le message de ${tags['display-name']} : ${message}`)
+        console.log(` voici les badges du user twitch  : `, JSON.stringify(tags.badges, null, 2))
+        console.log(` voici les emotes du user twitch  : `, JSON.stringify(tags.emotes, null, 2))
+        console.log(` voici les flags du user twitch  : `, JSON.stringify(tags.flags, null, 2))
+        console.log(` voici la couleur du user twitch  : `, JSON.stringify(tags.color, null, 2))
+        console.log(` voici le type du user twitch  : ${tags['user-type']}`)
+        console.log(` voici le 'tmi-sent-ts' du user twitch  : ${tags['tmi-sent-ts']}`)
+        console.log(` Le user twitch est-il un subscriber? : ${tags.subscriber}`)
         // let newMessages: LivestreamChatMessage[] = [
         //     ...messages,
         //     {
@@ -92,7 +120,7 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
             <div className={`z-7 bg-[rgba(138,228,240,0.4)] absolute grid justify-items-center items-center min-w-[80%] min-h-[50%]`} >
                 <ul role="list" class="divide-y divide-gray-100">
                     {
-                    messages.map(({ message, username, userProfilePictureUrl, socialNetwork }) => (
+                    messages.slice().reverse().slice(0, 5).reverse().map(({ message, username, userProfilePictureUrl, socialNetwork }) => (
                         <LivestreamChatMessageCard message={message} socialNetwork={socialNetwork} username={username} userProfilePictureUrl={userProfilePictureUrl} />
                         ))
                     }

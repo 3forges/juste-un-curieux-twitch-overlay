@@ -16,10 +16,13 @@ export interface LivestreamChatMessageCardProps {
     socialNetwork: SocialNetwork;
 }
 
+export function getRandomInteger(): number {
+  return Math.floor(Math.random() * 1024) + 1;
+}
 export function LivestreamChatMessageCard({
     message,
     username,
-    userProfilePictureUrl = `https://picsum.photos/24/24`,
+    userProfilePictureUrl = `https://fastly.picsum.photos/id/${getRandomInteger()}/12/12`,
     socialNetwork
 }: LivestreamChatMessageCardProps) {
 
@@ -29,7 +32,7 @@ export function LivestreamChatMessageCard({
 
                 <div>
                     <div class="flex min-w-0 gap-x-4">
-                        <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src={userProfilePictureUrl} alt={`${username} ${socialNetwork} profile picture`} />
+                        <img class="h-6 w-6 flex-none rounded-full bg-gray-50" src={userProfilePictureUrl} alt={`${username} ${socialNetwork} profile picture`} />
                         <div class="w-30 flex-auto">
                             <p class="text-xs font-semibold leading-6 text-white-900">{`${socialNetwork}`}</p>
                             <p class="text-xs mt-1 truncate leading-5 text-fuschia-500">{username}</p>
