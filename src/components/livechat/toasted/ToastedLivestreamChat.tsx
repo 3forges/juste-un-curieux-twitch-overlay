@@ -154,6 +154,12 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
                         </label>
                     </div>
                     <button 
+                        onClick={() => {
+                            /**
+                             * Set a different Channel
+                             */
+                            setChannel()
+                        }}
                         class="!absolute right-1 top-1 bg-purple-600 disabled:bg-purple-200 select-none rounded py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-purple-500/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none border-purple-200 focus:border-purple-500 border-1 focus:border-2"
                         type="button">
                         connect
