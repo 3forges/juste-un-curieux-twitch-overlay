@@ -1,5 +1,5 @@
 import { h } from 'preact'
-import { useState/*, useEffect*/ } from 'preact/compat'
+import { useRef, useState/*, useEffect*/ } from 'preact/compat'
 import type { SocialNetwork } from './utils/SocialNetwork';
 import type { LivestreamChatMessage } from './LivestreamChatMessage';
 import { LivestreamChatMessageCard } from './LivestreamChatMessage';
@@ -18,11 +18,13 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
     const [messages, setMessages] = useState<LivestreamChatMessage[]>([]);
     const [twitchCientInitialized, setTwitchCientInitialized] = useState<boolean>(false);
     console.log(` channel = ${channel}`)
+    const messagesStateRef = useRef<LivestreamChatMessage[]>();
+    messagesStateRef.current = messages
     const getCurrentMessagesList = (): LivestreamChatMessage[] => {
         return messages;
     }
     const handleOnTwitchMessage = (channel: string, tags: any, message: string, self: any) => {
-        console.log(` voici le message de ${tags['display-name']} : ${message}`)
+        console.log(` voici le message de ${tags['display-name']} : ${messagesStateRef.current}`)
         // let newMessages: LivestreamChatMessage[] = [
         //     ...messages,
         //     {
@@ -32,16 +34,17 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
         //     }
         // ];
         // setMessages(newMessages)
-        console.log(`Avant l'appel de setMessages, on a le state 'messages' qui vaut : `, messages)
+        console.log(`Avant l'appel de setMessages, on a le state 'messages' qui vaut : `, messagesStateRef.current)
         setMessages([
-            ...getCurrentMessagesList(),
+            //...getCurrentMessagesList(),
+            ...(messagesStateRef.current?messagesStateRef.current:[]),
             {
                 message: `${message}`,
                 socialNetwork: 'Twitch',
                 username: `${tags['display-name']}`
             }
         ])
-        console.log(`Après l'appel de setMessages, on a le state 'messages' qui vaut : `, getCurrentMessagesList())
+        console.log(`Après l'appel de setMessages, on a le state 'messages' qui vaut : `, messagesStateRef.current)
 
         //if(self) return;
         /*
