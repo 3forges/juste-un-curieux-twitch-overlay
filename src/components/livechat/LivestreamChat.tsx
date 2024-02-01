@@ -83,15 +83,15 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
     
     return (
         <>
-
-            <ul role="list" class="divide-y divide-gray-100">
-            {
-            messages.map(({ message, username, userProfilePictureUrl, socialNetwork }) => (
-                <LivestreamChatMessageCard message={message} socialNetwork={socialNetwork} username={username} userProfilePictureUrl={userProfilePictureUrl} />
-            ))
-            }
-
-            </ul>
+            <div className={`z-7 bg-white absolute grid justify-items-center items-center min-w-[80%] min-h-[50%]`} >
+                <ul role="list" class="divide-y divide-gray-100">
+                    {
+                    messages.map(({ message, username, userProfilePictureUrl, socialNetwork }) => (
+                        <LivestreamChatMessageCard message={message} socialNetwork={socialNetwork} username={username} userProfilePictureUrl={userProfilePictureUrl} />
+                        ))
+                    }
+                </ul>
+            </div>
         </>
     )
 }
