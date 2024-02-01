@@ -23,7 +23,7 @@ export default function VideoGallery() {
    */
   videos.map( (item: VideoItem, index: number) => {
     const dateStr: string = item.date.replaceAll('/','-').split("-").reverse().join("-")
-    const currentDate: string = new Date().toJSON().slice(0, 10)
+    const currentDate: string = new Date().toJSON().slice(0, 10)//LocalDate.parse(currentDate)
 
     const elapsed: Period = Period.between(
       LocalDate.parse(dateStr),
