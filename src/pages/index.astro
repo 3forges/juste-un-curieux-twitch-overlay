@@ -1,43 +1,87 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import "@fontsource-variable/inter";
+import Compatibility from "~/components/compatibility.astro";
+//import Features from "~/components/features.astro";
+import Footer from "~/components/footer.astro";
+import Header from "~/components/header.astro";
+// import Intro from "~/components/intro.astro";
+//import Showcase from "~/components/showcase.astro";
+import Splash from "~/components/splash.astro";
+import "~/styles/index.css";
+import VideoGallery from "~/components/VideoGallery"
+import {robotsConfig} from '../config';
+const { generator, site } = Astro;
+const image = new URL("Justin_Curieux-R1-01.webp", `${site}/`) 
+// const image = `https://justincurieux-boris-dropup-refined-52ms19bol.vercel.app/favicon.jpg`
+/*
 
-const twitchChannel = "bioboosterbob"
-const title = twitchChannel+" Twitch chat Overlay"
+const description =
+  "Build fast websites, faster. Astro is a new kind of site builder for the modern web. Lightning-fast performance meets powerful developer experience.";
+*/
+const description =
+  "Des livres, de la curiosité, de l'Histoire. Si je crée des vidéos aujourd'hui, c'est parce que je me sens désormais contraint de partager ce que j'ai découvert de plus utile et passionnant. \n\nÀ bientôt, et d'ici là, n'oubliez pas: restez curieux!";
 ---
 
-<Layout title={title}>
-	<main>
-<!-- INCLUDE CONFIG -->
-	<script is:inline src="overlay/scripts/config.js"></script>
-<!-- HANDLE ARGUMENTS CONFIG & THEME -->
-		<script is:inline>
-			const loc = window.location.href
-			let handledTheme = false
-			if (loc.replace(/\?/,'') != loc) {	// HANDLE ARGS
-				const args = loc.substring(loc.lastIndexOf("?")+1, loc.length).split("&")
-				args.map( (arg) => {													// ARGS SORT
-					if (arg.replace(/template/,'') != arg) {	 // HANDLE TEMPLATE FROM ARGS
-						const theme = arg.split("=")[1]
-						document.head.getElementsByTagName("link")[1].href = "overlay/themes/"+theme+".css"
-						config.theme = theme
-						handledTheme = true
-						console.log("theme applied from argument: ", theme)
-					}
-				})
-			}
-			if (config.theme != "" && handledTheme == false) {	// HANDLE TEMPLATE FROM CONFIG
-				document.head.getElementsByTagName("link")[1].href = "overlay/themes/"+config.theme+".css"
-				console.log("theme applied from config: ", config.theme)
-			}
-			window.CONFIG = Object.freeze(config);
-		</script>	
-<!-- 3rd PARTY SCRIPT -->	
-		<script is:inline src="overlay/scripts/comfy.min.js"></script>
-<!-- Twitch Tchat -->
-		<ul data-twitch-chat={twitchChannel}></ul>
-<!-- showmy.chat -->
-		<script is:inline src="overlay/scripts/color.js"></script>
-		<script is:inline src="overlay/scripts/utilities.js"></script>
-		<script is:inline src="overlay/scripts/handleChat.js"></script>
-		</main>
-</Layout>
+<!DOCTYPE html>
+<html lang="en" class="h-full motion-safe:scroll-smooth" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- <link rel="icon" href="/favicon.svg" type="image/svg+xml" /> -->
+    <link rel="icon" href="/Justin_Curieux-R1-01-02.webp" type="image/webp" />
+
+    <meta name="generator" content={generator} />
+
+    <title>Justin Curieux</title>
+    <meta name="description" content={description} />
+
+    <!-- social media -->
+    <meta property="og:title" content="Justin Curieux" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={site} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta property="og:image" content="https://mywebsite.net/assets/opengraph/theogimage.jpg"/>
+    <meta name="robots" content={robotsConfig.disableIndexing ? 'noindex, nofollow' : 'index, follow'} />
+
+    <!-- initialize theme -->
+    <script is:inline>
+      const themeSaved = localStorage.getItem("theme");
+
+      if (themeSaved) {
+        document.documentElement.dataset.theme = themeSaved;
+      } else {
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+      }
+
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          if (!localStorage.getItem("theme")) {
+            document.documentElement.dataset.theme = event.matches
+              ? "dark"
+              : "light";
+          }
+        });
+    </script>
+  </head>
+  <body
+    class="h-full overflow-x-hidden bg-default text-default text-base selection:bg-secondary selection:text-white"
+  >
+    <Header />
+    <Splash />
+    <div class="hidden xxs-noyoutube:hidden xs-noyoutube:block space-y-24 px-0 py-32">      
+      <VideoGallery client:only="preact" client:visible />
+      <!-- <Intro /> -->
+      <!--  <Features /> -->
+      <!-- <Compatibility /> -->
+      <!-- <Showcase /> -->
+    </div>
+    <Footer /> 
+  </body>
+</html>

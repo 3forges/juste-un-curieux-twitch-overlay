@@ -1,0 +1,221 @@
+---
+import { Icon } from 'astro-icon/components'
+import ThemeSwitcher from "./theme-switcher.astro"
+import type { NavItem } from "../types";
+
+import LogoSVG from "./LogoSVG";
+import { Share2Icon } from "lucide-preact";
+import UpSideDownShare from "./UpSideDownShare"
+
+const navItems: Array<NavItem> = [
+  { title: "Bientôt", url: "#features" },
+  { title: "Vidéos", url: "#showcase" },
+]
+
+// class="absolute bottom-0 z-20 flex flex-row w-full items-center justify-between border-b border-transparent px-1 py-2 text-white sm:px-3 sm:py-2 xl:px-8 xl:py-4"
+
+---
+
+<header
+  id="page-header"
+  class="absolute bottom-0 z-20 flex w-full items-center justify-between border-b border-transparent px-2 py-1 sm:px-4 sm:py-2 lg:px-8 lg:py-4 text-white"  >
+  <a class="flex items-center h-16 gap-0 sm:gap-1 lg:gap-2 hover:!text-default" href="#">
+    <h1 class="sr-only">Justin Curieux</h1>
+    <LogoSVG /> 
+    <Icon name="wordmark" class="hidden h-5 md:flex" />
+  </a>
+  <UpSideDownShare client:only="preact" />
+  <ThemeSwitcher />
+  <div>
+    <!-- HORIZONTAL MENU -->
+    <div class="flex flex-row-reverse items-center">
+      <nav class="hidden sm:block">
+        <ul class="flex items-center">
+          { navItems.map(({ title, url }) => (
+              <li class="ml-4">
+                <a class="text-sm" href={url}>
+                  {title}
+                </a>
+              </li>
+            )
+          )}          
+        </ul>
+      </nav>
+      
+      <button
+        id="open-nav-button"
+        type="button"
+        class="sm:hidden"
+        aria-label="Navigation"
+      >      
+        <Icon name="menu" class="h-8" />
+      </button>
+      
+    </div>
+
+    <!-- HAMBURGER MENU MODAL -->
+    <div id="menu-modal" class="modal hidden" aria-hidden="true">
+      <div class="fixed inset-0 bg-default px-8 py-4 text-default">
+        <div class="space-y-4" role="dialog" aria-modal="true">
+          <header class="text-right">
+            <button
+              id="close-nav-button"
+              type="button"
+              class="btn"
+              aria-label="Close navigation"
+            >
+              <Icon name="close" class="h-8" />
+            </button>
+          </header>
+          <div class="flex justify-center">
+            <Icon name="logomark" class="h-16" />
+          </div>
+          <nav>
+            <ul class="flex flex-col">
+              {
+                navItems.map(({ title, url }) => (
+                  <li>
+                    <a class="block py-4 text-center text-xl" href={url}>
+                      {title}
+                    </a>
+                  </li>
+                ))
+              }
+              <li class="block py-4 text-center text-xl">
+                <span class="flex flex-row items-center">
+                  <Share2Icon
+                    size={36}
+                    strokeWidth={3}
+                    stroke={`currentColor`}
+                    viewBox={"-2 -4 32 32"}
+                    alt="Share"
+                    className="h-18 w-18 m-1 p-1 rounded-full"
+                  />
+                  Partager:
+                </span>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  import MicroModal from "micromodal";
+  import invariant from "tiny-invariant";
+
+  const menuModalId = "menu-modal";
+
+  const header = document.querySelector("#page-header") as HTMLElement;
+  const page = document.documentElement;
+  const menu = document.querySelector(`#${menuModalId} ul`);
+  const openNavButton = document.querySelector("#open-nav-button");
+  const closeNavButton = document.querySelector("#close-nav-button");
+
+  invariant(header, "header should not be null");
+  invariant(menu, "menu should not be null");
+  invariant(openNavButton, "openNavButton should not be null");
+  invariant(closeNavButton, "closeNavButton should not be null");
+
+  // EVERY LISTENER INTO window.addEventListener("load", ... ) ??
+  const openMenu = () => {
+    MicroModal.show(menuModalId, { disableScroll: true });
+  };
+
+  const closeMenu = () => {
+    MicroModal.close(menuModalId);
+  };
+
+  openNavButton.addEventListener("click", openMenu);
+  closeNavButton.addEventListener("click", closeMenu);
+
+  document.addEventListener("scroll", () => {
+    const d = page.clientHeight - page.scrollTop - header.offsetHeight;
+    header.classList.toggle("fixed-header", d < 0);
+  });
+
+  menu.addEventListener("click", (event) => {
+    if ((event.target as HTMLElement).tagName === "A") {
+      closeMenu();
+    }
+  });
+
+  // FORCE BAR SYNCH ONLOAD
+  window.addEventListener("load", () => {
+    const d = page.clientHeight - page.scrollTop - header.offsetHeight;
+    header.classList.toggle("fixed-header", d < 0);
+  });
+</script>
+
+<noscript>
+  <style>
+    #open-nav-button {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<style>
+  .fixed-header {
+    @apply fixed bottom-auto top-0;
+    @apply border-default bg-default text-default;
+  }
+  .modal.is-open {
+    @apply block;
+  }
+  .st0 {
+    display: none;
+  }
+  .st1 {
+    display: inline;
+    fill: none;
+    stroke: #ff0000;
+    stroke-width: 15;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
+  }
+  .st2 {
+    display: inline;
+    fill: #ff0000;
+  }
+  .st3 {
+    display: inline;
+    fill: none;
+    stroke: #ff0000;
+    stroke-width: 13;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
+  }
+  .st4 {
+    display: inline;
+  }
+  .st5 {
+    display: inline;
+    fill: none;
+    stroke: #ff0000;
+    stroke-width: 14.22;
+    stroke-miterlimit: 10;
+  }
+  .st6 {
+    fill: #ff5d01;
+  }
+  .logo_livre {
+    display: inline;
+    fill: none;
+    stroke: #ff0000;
+    stroke-width: 14.22;
+    stroke-miterlimit: 10;
+  }
+  path.logo_livre {
+    stroke: black;
+    fill: black;
+  }
+  polygon.logo_livre {
+    stroke: black;
+    fill: black;
+  }
+</style>

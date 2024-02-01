@@ -1,0 +1,68 @@
+--- 
+const tailwindCssAnimated = `animate-jump-in animate-once animate-duration-[1250ms] animate-ease-in-out`  
+import { Image } from 'astro:assets'
+import arcTriomphe from "../assets/ortf/ArcdeTriomphe-1.jpg"
+---
+
+<style>
+@keyframes ping {
+  0% { background-position: 0% 0%; }
+    17% { background-position: 0% 1%; }
+    83% { background-position: 1% 0%; }
+  100% { background-position: 0% 1%; }
+}
+</style>
+<div class={`${tailwindCssAnimated} relative grid justify-items-center items-center bg-black`}>
+    <!-- CRT DISPLAY -->
+    <!-- Image         
+        src={arcTriomphe}
+        alt="Arc de Triomphe, Paris" 
+        class="rounded-[50px] filter grayscale blur-[2px] z-1"
+    / -->
+    <!-- Tailwind css config:
+
+        'xxs-noyoutube': '135px',
+        // => @media (min-width: 135px) { ... }
+        
+        'xxs': '240px',
+        // => @media (min-width: 240px) { ... }
+        
+        'xs-noyoutube': '335px', // at this exact screen size, the youtube video gallery will disappear
+        // => @media (min-width: 335px) { ... }
+        
+        'xs': '360px',
+        // => @media (min-width: 360px) { ... }
+
+        'sm': '640px',
+        // => @media (min-width: 640px) { ... }
+  
+        'md': '768px',
+        // => @media (min-width: 768px) { ... }
+  
+        'lg': '1024px',
+        // => @media (min-width: 1024px) { ... }
+
+        'lgxl': '1220px',
+        // => @media (min-width: 1220px) { ... }
+
+        'xl': '1280px',
+        // => @media (min-width: 1280px) { ... }
+        
+        'xxl': '1480px',
+        // => @media (min-width: 1480px) { ... }
+
+      [size of {arcTriomphe} image is 1197x666] 
+     -->
+    <Image
+      src={arcTriomphe}
+      widths={[240, 335, 360, 640, 768, 1024, 2000]}
+      sizes={`(max-width: 240px) 200px, (max-width: 335px) 300px, (max-width: 360px) 320px, (max-width: 640px) 600px, (max-width: 768px) 720px, (max-width: 1024px) 800px, (max-width: 2000px) 900px`}
+      class="rounded-[50px] filter grayscale blur-[2px] z-1 xl:max-w-[80%]"
+      alt="L'Arc de Triomphe."
+    />
+    
+    <!-- CRT BARS -->
+    <div 
+        class="absolute z-2 rounded-[50px] opacity-10 min-w-[100%] min-h-full bg-gradient-to-b from-white to-black bg-[length:5px_5px] animate-ping"
+    ></div>
+</div>

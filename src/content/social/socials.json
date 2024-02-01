@@ -1,0 +1,7 @@
+{
+  "link": "https://discord.com/channels/1054405752422420531/1054405753240305736",
+  "returnIcon": "(props: any) => { return <Icon name='discord' /> }",
+  "label": "Discord",
+  "bottom": "-bottom-[15px]",
+  "right": "-right-[70px]"
+}

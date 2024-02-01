@@ -1,0 +1,65 @@
+---
+import Ortf from "~/components/ortf.astro";
+// import { TwitchPlayer } from "~/components/TwitchPlayer"; // <TwitchPlayer client:only="preact"/>
+// import { TwitchPlayerX } from "~/components/TwitchPlayerX";
+import LivestreamChat from "~/components/livechat/LivestreamChat";
+
+import GitHubCorner from "./github-corner.astro";
+import TikTokCorner from "./tiktok-corner.astro"
+//import GitHubCorner from "~/components/GithubCorner";
+
+// //<GitHubCorner client:only="preact" />
+// import SocialCorner from "~/components/SocialCorner";
+// //<SocialCorner client:only="preact" />
+
+---
+
+<section class="relative h-full bg-black">
+  <TikTokCorner />
+  <div class="relative grid h-full place-items-center grid-cols-1">
+    <Ortf />
+    <!-- // <TwitchPlayerX client:load /> -->
+    <!-- <TwitchPlayerX channel="Justin_Curieux" client:only="preact" /> -->
+    <!-- <TwitchPlayerX channel="Justin_Curieux" client:only="preact" /> -->
+    <LivestreamChat channelOwnerUSerName="jeanbaptistelasselle" channel="jeanbaptistelasselle" client:only="preact" />
+    
+   </div>
+</section>
+
+<noscript>
+  <style>
+    #splash-bg-fallback {
+      display: block;
+    }
+  </style>
+</noscript>
+
+<style>
+  @keyframes float {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+      transform: translate3d(0, 30px, 0);
+    }
+  }
+
+  #astronaut {
+    animation: float linear 2.5s infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #astronaut {
+      @apply animate-none;
+    }
+
+    :global(#starfield) {
+      @apply hidden;
+    }
+
+    #splash-bg-fallback {
+      @apply block;
+    }
+  }
+</style>

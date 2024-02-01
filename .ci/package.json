@@ -1,0 +1,18 @@
+{
+  "name": "@pesto/image-service",
+  "version": "0.0.1",
+  "scripts": {
+    "meta:build": "tsc -p ./tsconfig.json",
+    "format": "npm run \"meta:build\" && prettier --write .",
+    "clean": "rimraf dist .astro node_modules"
+  },
+  "devDependencies": {
+    "@astrojs/image": "^0.17.2",
+    "@types/uuid": "^9.0.7",
+    "astro": "^2.8.0",
+    "astro-icon": "^0.8.1",
+    "prettier": "2.8.8",
+    "rimraf": "^5.0.1",
+    "svgo": "2.8.0"
+  }
+}
