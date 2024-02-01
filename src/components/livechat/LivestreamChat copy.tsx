@@ -18,38 +18,7 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
     const [messages, setMessages] = useState<LivestreamChatMessage[]>([]);
     const [twitchCientInitialized, setTwitchCientInitialized] = useState<boolean>(false);
     console.log(` channel = ${channel}`)
-    const getCurrentMessagesList = (): LivestreamChatMessage[] => {
-        return messages;
-    }
-    const handleOnTwitchMessage = (channel: string, tags: any, message: string, self: any) => {
-        console.log(` voici le message de ${tags['display-name']} : ${message}`)
-        // let newMessages: LivestreamChatMessage[] = [
-        //     ...messages,
-        //     {
-        //         message: `${message}`,
-        //         socialNetwork: 'Twitch',
-        //         username: `${tags['display-name']}`
-        //     }
-        // ];
-        // setMessages(newMessages)
-        console.log(`Avant l'appel de setMessages, on a le state 'messages' qui vaut : `, messages)
-        setMessages([
-            ...getCurrentMessagesList(),
-            {
-                message: `${message}`,
-                socialNetwork: 'Twitch',
-                username: `${tags['display-name']}`
-            }
-        ])
-        console.log(`Après l'appel de setMessages, on a le state 'messages' qui vaut : `, getCurrentMessagesList())
 
-        //if(self) return;
-        /*
-        if(message.toLowerCase() === '!hello') {
-            client.say(channel, `@${tags.username}, heya!`);
-        }
-        */
-    }
     if (!twitchCientInitialized) {
         const client = new tmi.Client({
             options: { debug: true },
@@ -67,13 +36,41 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
         client.on('connected', () => {
             setTwitchCientInitialized(true)
             console.log(`Astro: Ok now I know the Twitch client is connected to the chat`);
-        })
-        client.on('message', handleOnTwitchMessage);
+        }) 
+        client.on('message', (channel, tags, message, self) => {
+            console.log(` voici le message de ${tags['display-name']} : ${message}`)
+            // let newMessages: LivestreamChatMessage[] = [
+            //     ...messages,
+            //     {
+            //         message: `${message}`,
+            //         socialNetwork: 'Twitch',
+            //         username: `${tags['display-name']}`
+            //     }
+            // ];
+            // setMessages(newMessages)
+            console.log(`Avant l'appel de setMessages, on a le state 'messages' qui vaut : `, messages)
+            setMessages([
+                ...messages,
+                {
+                    message: `${message}`,
+                    socialNetwork: 'Twitch',
+                    username: `${tags['display-name']}`
+                }
+            ])
+            console.log(`Après l'appel de setMessages, on a le state 'messages' qui vaut : `, messages)
+    
+            //if(self) return;
+            /*
+            if(message.toLowerCase() === '!hello') {
+                client.say(channel, `@${tags.username}, heya!`);
+            }
+            */
+        });
         
     } else {
         console.log(`Twitch Client is already initialized and connected`)
     }
-    console.log(`Fin du if Après l'appel de setMessages, on a le state 'messages' qui vaut : `, getCurrentMessagesList())
+    console.log(`Fin du if Après l'appel de setMessages, on a le state 'messages' qui vaut : `, messages)
     // const initComFyJs = async (): Promise<ComfyJSInstance> => {
     //     ComfyJS.Init(channelOwnerUSerName, undefined, [channel] /*watchedChannels.split(' ')*/);
     //     return ComfyJS
