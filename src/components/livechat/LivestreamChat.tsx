@@ -83,7 +83,7 @@ export default /* async */ function LivestreamChat({channel, channelOwnerUSerNam
     
     return (
         <>
-            <div className={`z-7 bg-white absolute grid justify-items-center items-center min-w-[80%] min-h-[50%]`} >
+            <div className={`z-7 bg-[rgba(138,228,240,0.4)] absolute grid justify-items-center items-center min-w-[80%] min-h-[50%]`} >
                 <ul role="list" class="divide-y divide-gray-100">
                     {
                     messages.map(({ message, username, userProfilePictureUrl, socialNetwork }) => (
