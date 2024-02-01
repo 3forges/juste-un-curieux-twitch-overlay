@@ -64,14 +64,13 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
         let toastConfig: ExternalToast = {
             unstyled: true,
             classNames: {
-                toast: 'ml-1 p-1 bg-green-300 rounded-lg animate-pulse',
-                title: 'p-1 text-sm text-white-900',
-                description: 'p-1 text-white-900',
-                actionButton: 'bg-zinc-400',
-                cancelButton: 'bg-orange-400',
-                closeButton: 'bg-lime-400',
+                toast: 'transitisson-all ease-in-out duration-300 ml-1 p-1 bg-orange-500 rounded-lg hover:z-50 hover:bg-orange-400 text-[#ffffff]',
+                title: 'p-1 text-sm text-[#ffffff]',
+                description: 'p-1 text-[#ffffff]',
+                //actionButton: 'bg-zinc-400',
+                //cancelButton: 'bg-red-400',
+                //closeButton: 'bg-lime-400',
             },
-            invert: false,
             duration: 9000,
             description: `${currentTimeHour}:${(currentTimeMinute < 10 ? "0" + currentTimeMinute : currentTimeMinute)} - ${tags['display-name']}, on Twitch`,
         }
@@ -145,19 +144,7 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
                     {//<Toaster expand duration={5} pauseWhenPageIsHidden toastOptions={{}} position="bottom-center" />
 
                     }
-                    <Toaster
-                        toastOptions={{
-                            // unstyled: true,
-                            // classNames: {
-                            //     toast: 'bg-blue-400',
-                            //     title: 'text-red-400',
-                            //     description: 'text-red-400',
-                            //     actionButton: 'bg-zinc-400',
-                            //     cancelButton: 'bg-orange-400',
-                            //     closeButton: 'bg-lime-400',
-                            // },
-                        }}
-                        visibleToasts={7} expand position="bottom-center" />
+                    <Toaster visibleToasts={5} expand position="bottom-center" />
                 </ul>
             </div>
         </>
