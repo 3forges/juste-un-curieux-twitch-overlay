@@ -45,15 +45,12 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
     const [messages, setMessages] = useState<LivestreamChatMessage[]>([]);
     const [twitchCientInitialized, setTwitchCientInitialized] = useState<boolean>(false);
     // const [chosenChannel, setChosenChannel] = useState<string>()
-    const chosenChannelInputRef = useRef<HTMLInputElement>();
+    const chosenChannelInputRef = useRef<HTMLInputElement>(null);
     console.log(` channel = ${channel}`)
     const messagesStateRef = useRef<LivestreamChatMessage[]>();
     messagesStateRef.current = messages
-    const handleChosenChannelChange = (event: { target: { value: any } }) => {
-        chosenChannel = event.target.value;
-    };
     const handleSetChannelBtnClick = () => {
-        console.log(` chosenChannel = ${chosenChannelInputRef.current.value}`)
+        console.log(` chosenChannel = ${chosenChannelInputRef.current?chosenChannelInputRef.current.value:`no channel chosen yet`}`)
         setTwitchCientInitialized(false);
     }
     const handleOnTwitchMessage = (channel: string, tags: tmi.ChatUserstate, message: string, self: any) => {
@@ -153,10 +150,10 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
                         <input 
                             type="email"
                             ref={chosenChannelInputRef}
-                            class="peer h-full w-full rounded-[7px] border border-purple-400 border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal text-purple-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-purple-400 placeholder-shown:border-t-purple-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:border-purple-200"
+                            class="peer h-full w-full rounded-[7px] border border-slate-400 border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal text-slate-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-slate-400 placeholder-shown:border-t-slate-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:border-slate-200"
                             placeholder=" " value="" />
                         <label
-                            class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-purple-400 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-purple-400 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-purple-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-purple-500">
+                            class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-slate-400 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-slate-400 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-slate-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-slate-500">
                             Twitch Channel
                         </label>
                     </div>
