@@ -148,7 +148,7 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
 
                 {// <!--Input + button to chanch channel -->
                 }
-                <div class="fixed top-5 flex w-full max-w-[24rem]">
+                <div class="fixed p-4 rounded-lg bg-[rgba(120,231,237,0.6)] top-5 flex w-full max-w-[24rem]">
                     <div class="relative h-12 w-full min-w-[200px]">
                         <input 
                             type="email"
@@ -162,7 +162,7 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
                     </div>
                     <button 
                         onClick={handleSetChannelBtnClick}
-                        class="!absolute right-1 top-1 bg-purple-600 disabled:bg-purple-200 select-none rounded py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-purple-500/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none border-purple-200 focus:border-purple-500 border-1 focus:border-2"
+                        class="!absolute right-5 top-[22px] bg-purple-600 disabled:bg-purple-200 select-none rounded py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-purple-500/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none border-purple-200 focus:border-purple-500 border-1 focus:border-2"
                         type="button">
                         connect
                     </button>
