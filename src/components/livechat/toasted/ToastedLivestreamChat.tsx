@@ -44,11 +44,17 @@ export interface ToastedLivestreamChatProps {
 export default /* async */ function ToastedLivestreamChat({ channel, channelOwnerUSerName }: ToastedLivestreamChatProps) {
     const [messages, setMessages] = useState<LivestreamChatMessage[]>([]);
     const [twitchCientInitialized, setTwitchCientInitialized] = useState<boolean>(false);
+    // const [chosenChannel, setChosenChannel] = useState<string>()
+    const chosenChannelInputRef = useRef<HTMLInputElement>();
     console.log(` channel = ${channel}`)
     const messagesStateRef = useRef<LivestreamChatMessage[]>();
     messagesStateRef.current = messages
-    const getCurrentMessagesList = (): LivestreamChatMessage[] => {
-        return messages;
+    const handleChosenChannelChange = (event: { target: { value: any } }) => {
+        chosenChannel = event.target.value;
+    };
+    const handleSetChannelBtnClick = () => {
+        console.log(` chosenChannel = ${chosenChannelInputRef.current.value}`)
+        setTwitchCientInitialized(false);
     }
     const handleOnTwitchMessage = (channel: string, tags: tmi.ChatUserstate, message: string, self: any) => {
         console.log(` voici le message de ${tags['display-name']} : ${message}`)
@@ -86,7 +92,6 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
         // setMessages(newMessages)
         console.log(`Avant l'appel de setMessages, on a le state 'messages' qui vaut : `, messagesStateRef.current)
         setMessages([
-            //...getCurrentMessagesList(),
             ...(messagesStateRef.current ? messagesStateRef.current : []),
             {
                 message: `${message}`,
@@ -114,7 +119,7 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
                 username: 'bot-name',
                 password: 'oauth:my-bot-token'
             },*/
-            channels: [`${channel}`]
+            channels: [`${chosenChannelInputRef.current?chosenChannelInputRef.current.value:channel}`]
         });
         client.connect().catch(console.error);
         client.on('connected', () => {
@@ -126,7 +131,7 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
     } else {
         console.log(`Twitch Client is already initialized and connected`)
     }
-    console.log(`Fin du if Après l'appel de setMessages, on a le state 'messages' qui vaut : `, getCurrentMessagesList())
+    console.log(`Fin du if Après l'appel de setMessages, on a le state 'messages' qui vaut : `, messagesStateRef.current)
     // const initComFyJs = async (): Promise<ComfyJSInstance> => {
     //     ComfyJS.Init(channelOwnerUSerName, undefined, [channel] /*watchedChannels.split(' ')*/);
     //     return ComfyJS
@@ -145,7 +150,9 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
                 }
                 <div class="fixed top-5 flex w-full max-w-[24rem]">
                     <div class="relative h-12 w-full min-w-[200px]">
-                        <input type="email"
+                        <input 
+                            type="email"
+                            ref={chosenChannelInputRef}
                             class="peer h-full w-full rounded-[7px] border border-purple-400 border-t-transparent bg-transparent px-3 py-2.5 pr-20 font-sans text-sm font-normal text-purple-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-purple-400 placeholder-shown:border-t-purple-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:border-purple-200"
                             placeholder=" " value="" />
                         <label
@@ -154,12 +161,7 @@ export default /* async */ function ToastedLivestreamChat({ channel, channelOwne
                         </label>
                     </div>
                     <button 
-                        onClick={() => {
-                            /**
-                             * Set a different Channel
-                             */
-                            setChannel()
-                        }}
+                        onClick={handleSetChannelBtnClick}
                         class="!absolute right-1 top-1 bg-purple-600 disabled:bg-purple-200 select-none rounded py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-purple-500/20 transition-all hover:shadow-lg hover:shadow-purple-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none border-purple-200 focus:border-purple-500 border-1 focus:border-2"
                         type="button">
                         connect
